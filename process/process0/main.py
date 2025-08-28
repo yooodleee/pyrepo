@@ -11,3 +11,7 @@ if __name__ == "__main__":
         results = pool.map(square_number, data)
     
     print("Results: ", results)
+
+"""
+Results:  [1, 4, 9, 16, 25]
+"""
