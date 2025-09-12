@@ -48,4 +48,32 @@ task_name = "grocery shopping"
 assert f"Task Name: {task_name.title()}" == 'Task Name: Grocery Shopping' # B
 
 number = 5
-assert f"Square: {number * number}" == 'Square: 25' # C
+assert f"Square: {number * number}" == 'Square: 25' # 
+
+
+#%%
+summary_text = f"Your Average Score: {sum([95, 98, 97, 96, 97, 93]) / len(95, 98, 97, 96, 97, 93)}."
+
+
+#%%
+scores = [95, 98, 97, 96, 97, 93]
+
+total_score = sum(scores)
+subject_count = len(scores)
+average_score = total_score / subject_count
+
+summary_text = f"Your Average Score: {average_score}."
+
+
+#%%
+task_ids = [1, 2, 3]
+task_names = ['Do homework', 'Laundary', 'Pay bills']
+task_urgencies = [5, 3, 4]
+
+for i in range(3):
+    print(f'{task_ids[i]:^12}{task_names[i]:^12}{task_urgencies[i]:^12}') # use format specifier
+
+# # output
+#      1      Do homework      5      
+#      2        Laundary       3      
+#      3       Pay bills       4     
