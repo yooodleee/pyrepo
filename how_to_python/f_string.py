@@ -38,3 +38,14 @@ assert f"Task: {task_hwk}" == "Task: ('Homework', 'Complete physics work')" # Tu
 
 task = {"name": "Laundry", "unrgency": 3}
 assert f"Task: {task}" == "Task: {'name': 'Laundry', 'urgency': 3}" # Dictionary object interpolation
+
+
+#%%
+tasks = ["homework", "laundary", "grocery shopping"]
+assert f"First Task: {tasks[0]}" == 'First Task: homework' # A
+
+task_name = "grocery shopping"
+assert f"Task Name: {task_name.title()}" == 'Task Name: Grocery Shopping' # B
+
+number = 5
+assert f"Square: {number * number}" == 'Square: 25' # C
