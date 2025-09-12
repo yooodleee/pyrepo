@@ -77,3 +77,29 @@ for i in range(3):
 #      1      Do homework      5      
 #      2        Laundary       3      
 #      3       Pay bills       4     
+
+
+#%%
+def create_formatted_records(fmt):
+    for i in range(3):
+        task_id = task_ids[i]
+        name = task_names[i]
+        urgency = task_urgencies[i]
+        print(f'{task_id:{fmt}}{name:{fmt}}{urgency:{fmt}}')
+
+
+# %%
+create_formatted_records('^15')
+
+# # output
+#        1         Do homework         5       
+#        2          Laundary           3       
+#        3          Pay bills          4    
+
+# %%
+create_formatted_records('^18')
+
+# # output
+#        1         Do homework         5       
+#        2          Laundary           3       
+#        3          Pay bills          4    
