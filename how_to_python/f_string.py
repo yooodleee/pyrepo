@@ -103,3 +103,43 @@ create_formatted_records('^18')
 #        1         Do homework         5       
 #        2          Laundary           3       
 #        3          Pay bills          4    
+
+
+#%%
+large_prime_number = 1000000007
+
+print(f"Use commas: {large_prime_number:,d}")
+# output: Use commas: 1,000,000,007
+
+
+#%%
+decimal_number = 1.23456
+
+print(f"Two digits: {decimal_number:.2f}")
+# output: Two digits: 1.23
+
+print(f"Four dogots: {decimal_number:.4f}")
+# output: Four dogots: 1.2346
+
+
+#%%
+sci_number = 0.00000000412733
+
+print(f"Sci number: {sci_number:e}")
+# output: Sci number: 4.127330e-09
+
+print(f"Sci number: {sci_number:.2e}")
+# output: Sci number: 4.13e-09
+
+
+# %%
+pct_number = 0.179323
+
+print(f"Percentage: {pct_number:%}")
+# output: Percentage: 17.932300%
+
+print(f"Percentage two digits: {pct_number:.2%}")
+# output: Percentage two digits: 17.93%
+
+
+# %%
