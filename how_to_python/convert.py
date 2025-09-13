@@ -42,3 +42,35 @@ cast_number("2.3a")
 
 
 # %%
+numbers_list_str = "[1, 2]"
+numbers_tuple_str = "(1, 2)"
+numbers_dict_str = "{1: 'one', 2: 'two'}"
+
+list(numbers_list_str) 
+# output: ['[', '1', ',', ', '2', ']']
+
+tuple(numbers_tuple_str)
+# output: ('(', '1', ',', ' ', '2', ')')
+
+dict(numbers_dict_str)
+# output: ValueError: dictionary update sequence element #0 has length 1; 2 is required
+
+
+# %%
+assert eval(numbers_list_str) == [1, 2]
+
+assert eval(numbers_tuple_str) == (1, 2)
+
+assert eval(numbers_dict_str) == {1: 'one', 2: 'two'}
+
+
+# %%
+list_str = "[1, 2, 3, 4]"
+stripped_str = list_str.strip("[]")
+number_list = [int(x) for x in stripped_str.split(",")]
+
+print(number_list)
+# output: [1, 2, 3, 4]
+
+
+# %%
