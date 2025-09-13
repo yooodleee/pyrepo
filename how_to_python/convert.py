@@ -130,3 +130,34 @@ print("Remaining Tasks: ", ", ".join(tasks))
 
 
 # %%
+task_data = """1001,Homework,5
+1002,Laundry,3
+1003,Grocery,4"""
+
+processed_tasks = []
+for data_line in task_data.split("\n"):
+    processed_task = data_line.split(",") 
+    processed_task.append(processed_task)
+
+print(processed_tasks)
+# output: [['1001', 'Homework', '5'], ['1002', 'Laundry', '3'], ['1003', 'Grocery', '4']]
+
+
+# %%
+messy_data = "process,messy_data_mixed,separators"
+
+separated_words0 = []
+for word in messy_data.split(","):
+    if word.find("_") < 0: 
+        separated_words0.append(word)
+    else:
+        separated_words0.extend(word.split("_"))
+
+
+# %%
+consolidated = messy_data.replace(",", "_")
+
+separated_words1 = consolidated.split("_")
+
+
+# %%
