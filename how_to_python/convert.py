@@ -74,3 +74,59 @@ print(number_list)
 
 
 # %%
+fruit0 = "apple"
+fruit1 = "banana"
+fruit2 = "orange"
+
+# liked_fruits = "apple, banan, orange"
+
+
+#%%
+visited_countries = "United States, China, France, Canada"
+
+# countries = ["United States, China, France, Canada"]
+
+#%%
+style_settings = "font-size=large, " "font=Arial, " "color=black, " "align=center"
+
+print(style_settings)
+# output: font-size=large, font=Arial, color=black, align=center
+
+
+# %%
+settings = {"font-size": "large", "font": "Arial", "color": "black", "align": "center"}
+
+styles = f"font-size={settings['font-size']}, " \
+         f"font={settings['font']}, " \
+         f"color={settings['color']}, " \
+         f"align={settings['align']}"
+
+print(styles)
+# output: font-size=large, font=Arial, color=black, align=center
+
+
+# %%
+style_settings = ["font-size=large", "font=Arial", "color=black", "align=center"]
+merged_style = ", ".join(style_settings)
+
+print(merged_style)
+# output: font-size=large, font=Arial, color=black, align=center
+
+
+# %%
+tasks = ["Homework", "Grocery", "Laundry", "Museum Trip", "Buy Furniture"]
+note = ", ".join(tasks)
+
+print("Remaining Tasks: ", note)
+# output: Remaining Tasks: Homework, Grocery, Laundry, Musem Trip, Buy Furniture 
+
+
+# %%
+tasks.remove("Buy Furniture")
+tasks.remove("Homework")
+
+print("Remaining Tasks: ", ", ".join(tasks))
+# output: Remaining Tasks: Grocery, Laundry, Museum Trip
+
+
+# %%
