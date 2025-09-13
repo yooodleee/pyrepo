@@ -143,3 +143,26 @@ print(f"Percentage two digits: {pct_number:.2%}")
 
 
 # %%
+bad_username0 = "123!@#"
+assert bad_username0.isalnum() == False
+
+bad_username1 = "abc..."
+assert bad_username1.isalnum() == False
+
+good_username = "1a2b3c"
+assert good_username.isalnum() == True 
+
+
+# %%
+assert "Homework".isalpha() == True
+
+assert "Homework123".isalpha() == False
+
+
+# %%
+assert "123".isnumeric() == True
+
+assert "a123".isnumeric() == False 
+
+
+# %%
