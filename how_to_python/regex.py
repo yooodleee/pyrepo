@@ -58,3 +58,38 @@ for text in texts:
 
 
 # %%
+re.search(r"^hi", "hi Python")
+# output: <re.Match object; span=(0, 2), match='hi'>
+
+re.search(r"task$", "do the task")
+# output: <re.Match object; span=(7, 11), match='task'>
+
+re.search(r"^hi task$", "hi task")
+# output: <re.Match object; span=(0, 7), match='hi task'>
+
+re.search(r"^hi task$", "hi Python task")
+# output: None
+
+
+# %%
+test_string = "h hi hii hiii hiiii"
+test_patterns = [r"hi?", r"hi*", r"hi+", r"hi{3}", r"hi{2,3}", r"hi{2,}",
+                 r"hi??", r"hi*?", r"hi+?", r"hi{2,}?"]
+
+for pattern in test_patterns:
+    print(f"{pattern: <9}--> {re.findall(pattern, test_string)}")
+
+# # output: 
+# hi?      --> ['h', 'hi', 'hi', 'hi', 'hi']
+# hi*      --> ['h', 'hi', 'hii', 'hiii', 'hiiii']
+# hi+      --> ['hi', 'hii', 'hiii', 'hiiii']
+# hi{3}    --> ['hiii', 'hiii']
+# hi{2,3}  --> ['hii', 'hiii', 'hiii']
+# hi{2,}   --> ['hii', 'hiii', 'hiiii']
+# hi??     --> ['h', 'h', 'h', 'h', 'h']
+# hi*?     --> ['h', 'h', 'h', 'h', 'h']
+# hi+?     --> ['hi', 'hi', 'hi', 'hi']
+# hi{2,}?  --> ['hii', 'hii', 'hii']
+
+
+# %%
