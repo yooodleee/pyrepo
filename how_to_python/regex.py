@@ -93,3 +93,21 @@ for pattern in test_patterns:
 
 
 # %%
+test_text = "#1$2m_M\t"
+patterns = ["\d", "\D", "\s", "\S", "\w", "\W", ".", "[lmn]"]
+
+for pattern in patterns:
+    print(f"{pattern: <9}---> {re.findall(pattern, test_text)}")
+
+# # output: 
+# \d       ---> ['1', '2']
+# \D       ---> ['#', '$', 'm', '_', 'M', '\t']
+# \s       ---> ['\t']
+# \S       ---> ['#', '1', '$', '2', 'm', '_', 'M']
+# \w       ---> ['1', '2', 'm', '_', 'M']
+# \W       ---> ['#', '$', '\t']
+# .        ---> ['#', '1', '$', '2', 'm', '_', 'M', '\t']
+# [lmn]    ---> ['m']
+
+
+# %%
