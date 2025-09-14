@@ -111,3 +111,20 @@ for pattern in patterns:
 
 
 # %%
+re.findall(r"a|b", "a c d d b ab")
+# output: ['a', 'b', 'a', 'b']
+
+re.findall(r"a|b", "c d d b")
+# output: ['b']
+
+re.findall(r"(abc)", "ab bc abc ac")
+# output: ['abc']
+
+re.findall(r"(abc)", "ab bc ac")
+# output: []
+
+re.findall(r"[^a]", "abcde")
+# output: ['b', 'c', 'd', 'e']
+
+
+# %%
