@@ -128,3 +128,21 @@ re.findall(r"[^a]", "abcde")
 
 
 # %%
+match = re.search(r"(\w\d)+", "xyza2b1c3dd")
+
+print(match)
+# output: <re.Match object; span=(3, 9), match='a2b1c3'>
+
+
+# %%
+print("matched:", match.group())
+# output: matched: a2b1c3
+
+print("span:", match.span())
+# output: span: (3, 9)
+
+print(f"start: {match.start()} & end: {match.end()}")
+# output: start: 3 & end: 9
+
+
+# %%
