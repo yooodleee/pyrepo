@@ -32,3 +32,29 @@ re.findall("pattern", "the string to be searched")
 
 
 # %%
+task_pattern = re.compile("\\\\task")
+texts = ["\task", "\\task", "\\\task", "\\\\task"]
+for text in texts:
+    print(f"Match {text!r}: {task_pattern.match(text)}")
+
+# # output: 
+# Match '\task': None
+# Match '\\task': <re.Match object; span=(0, 5), match='\\task'>
+# Match '\\\task': None
+# Match '\\\\task': None
+
+
+# %%
+task_pattern_r = re.compile(r"\\task")
+texts = ["\task", "\\task", "\\\task", "\\\\task"]
+for text in texts:
+    print(f"Match {text!r}: {task_pattern_r.match(text)}")
+
+# # output: 
+# Match '\task': None
+# Match '\\task': <re.Match object; span=(0, 5), match='\\task'>
+# Match '\\\task': None
+# Match '\\\\task': None
+
+
+# %%
