@@ -216,3 +216,46 @@ re.sub(r"\D", "-", '123,456_789')
 
 
 # %%
+text_data = """101, Homework; Complete physics and math
+some random nonsense
+102, Laundry; Wash all the clothes today
+54, random; record
+103, Museum; All about Egypt
+1234, random; record
+Another random record"""
+
+
+regex = re.compile(r"(\d{3}), (\w+); (.+)")
+for line in text_data.split("\n"): 
+    match = regex.match(line)
+    if match:
+        print(f"{'Matched:':<12}{match.group()}")
+    else:
+        print(f"{'No Match:':<12}{line}")
+
+# # output:
+# Matched:    101, Homework; Complete physics and math
+# No Match:   some random nonsense
+# Matched:    102, Laundry; Wash all the clothes today
+# No Match:   54, random; record
+# Matched:    103, Museum; All about Egypt
+# No Match:   1234, random; record
+# No Match:   Another random record
+
+
+# %%
+regex = re.compile(r"(\d{3}), (\w+); (.+)")
+tasks = []
+
+for line in text_data.split("\n"):
+    match = regex.match(line)
+    if match:
+        task = (match.group(1), match.group(2), match.group(3))
+
+        tasks.append(task)
+
+print(tasks)
+# output: [('101', 'Homework', 'Complete physics and math'), ('102', 'Laundry', 'Wash all the clothes today'), ('103', 'Museum', 'All about Egypt')]
+
+
+# %%
