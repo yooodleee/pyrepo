@@ -146,3 +146,34 @@ print(f"start: {match.start()} & end: {match.end()}")
 
 
 # %%
+match = re.match(r"(\w+), (\w+)", "Homework, urgent: today")
+print(match)
+# output: <re.Match object; span=(0, 16), match='Homework, urgent'>
+
+
+# %%
+match.groups()
+# output: ('Homework', 'urgent')
+
+match.groups(0)
+# output: 'Homework, urgent'
+
+match.groups(1)
+# output: 'Homework'
+
+match.groups(2)
+# output: 'urgent'
+
+
+# %%
+match.span(0)
+# output: (0, 16)
+
+match.span(1)
+# output: (0, 8)
+
+match.span(1)
+# output: (10, 16)
+
+
+# %%
