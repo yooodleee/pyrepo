@@ -177,3 +177,42 @@ match.span(1)
 
 
 # %%
+re.search(r"\d+", "ab12xy")
+# output: '12'
+
+re.search(r"\d+", "abxy")
+# output: None
+
+
+# %%
+re.match(r"\d+", "ab12xy")
+# output: None
+
+re.match(r"\d+", "12abxy")
+# output: '12'
+
+
+# %%
+re.findall(r"h[ie]\w", "hi hey hello")
+# output: ['hey', 'hel']
+
+re.findall(r"(h|H)(i|e)", "hi Hey hello")
+# output: [('H', 'e'), ('h', 'e')]
+
+
+# %%
+re.finditer(r"(h|H)(i|e)", "hi Hey hello")
+# output: <callable_iterator at 0x16274a8d730>
+
+
+# %%
+re.split(r"\d+", 'a1b2c3d4e')
+# output: ['a', 'b', 'c', 'd', 'e']
+
+
+# %%
+re.sub(r"\D", "-", '123,456_789')
+# output: '123-456-789
+
+
+# %%
