@@ -133,3 +133,34 @@ asyncio.run(main())
 
 
 # %%
+from asyncio import TaskGroup 
+
+
+class TerminateTaskGroup(Exception):
+    """Exception for Terminate Task Group."""
+
+async def force_terminate_task_grup():
+    raise TerminateTaskGroup()
+
+async def job(task_id, sleep_time):
+    print(f"Task {task_id}: start")
+    await asyncio.sleep(sleep_time)
+    print(f"Task {task_id}: done")
+
+async def main():
+    try:
+        async with TaskGroup() as group:
+            group.create_task(job(1, 0.5))
+            group.create_task(job(2, 1.5))
+
+            await asyncio.sleep(1)
+
+            group.create_task(force_terminate_task_grup())
+    except TerminateTaskGroup:
+        pass
+
+asyncio.run(main())
+# # output:
+# Task 1: start
+# Task 2: start
+# Task 1: done
