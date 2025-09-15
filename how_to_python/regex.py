@@ -259,3 +259,19 @@ print(tasks)
 
 
 # %%
+regex = re.compile(r"(?P<task_id>\d{3}), (?P<task_title>\w+); (?P<task_desc>.+)")
+tasks = []
+
+for line in text_data.split("\n"):
+    match = regex.match(line)
+    if match:
+        task = (match.group('task_id'), match.group('task_title'), match.group('task_desc'))
+        
+        tasks.append(task)
+
+
+match.groupdict(0)
+# output: {'task_id': '101', 'task_title': 'Homework', 'task_desc': 'Complete physics and math'}
+
+
+# %%
