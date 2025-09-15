@@ -105,3 +105,31 @@ async def main():
         function_that_returns_a_future_object(),
         some_python_coroutine()
     )
+
+
+# %%
+async def my_task():
+    print("Task Start")
+    
+    try:
+        await asyncio.sleep(5)
+        print("Task Finish")
+    except asyncio.CancelledError:
+        print("Canceled Task")
+        raise 
+
+async def main():
+    task = asyncio.create_task(my_task())
+    await asyncio.sleep(1)
+    task.cancel()
+
+    try:
+        await task 
+    except asyncio.CancelledError:
+        print("Except Task's canceled error in main function.")
+
+
+asyncio.run(main())
+
+
+# %%
