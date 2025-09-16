@@ -75,3 +75,12 @@ mixed.sort()
 
 
 # %%
+mixed = [3, 1, 2, 'John', ['c', 'd'], ['a', 'b']]
+
+mixed.sort(key=str)
+
+print(mixed)
+# output: [1, 2, 3, 'John', ['a', 'b'], ['c', 'd']]
+
+
+# %%
