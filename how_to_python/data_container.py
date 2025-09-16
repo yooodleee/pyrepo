@@ -105,3 +105,18 @@ print(tasks)
 
 
 # %%
+task_list = ['Laundry', 'Wash Clothes', 3]                              # List
+task_tuple = ('Laundry', 'Wash Clothes', 3)                             # tuple
+task_dict = {'title': 'Laundry', 'desc': 'Wash Clothes', 'urgency': 3}  # dictionary
+
+
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+
+task_class = Task('Laundry', 'Wash Clothes', 3)
+
+
+# %%
