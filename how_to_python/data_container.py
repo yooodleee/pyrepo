@@ -84,3 +84,24 @@ print(mixed)
 
 
 # %%
+tasks = [
+    {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3},
+    {'title': 'Homework', 'desc': 'Physics', 'urgency': 5},
+    {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}
+]
+
+def using_urgency_level(task):
+    return task['urgency']
+
+tasks.sort(key=using_urgency_level, reverse=True)
+print(tasks)
+# output: [{'title': 'Homework', 'desc': 'Physics', 'urgency': 5}, {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3}, {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}]
+
+
+# %%
+tasks.sort(key=lambda x: x['urgency'], reverse=True)
+print(tasks)
+# output: [{'title': 'Homework', 'desc': 'Physics', 'urgency': 5}, {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3}, {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}]
+
+
+# %%
