@@ -252,3 +252,25 @@ calculate_something(arg0, arg1, kwarg0=5, kwarg3="text")
 
 
 # %%
+from timeit import timeit
+
+for count in [10, 100, 1000, 10000, 100000]:
+    setup_str = f"""from random import randint; n = {count}; numbers_set = set(range(n)); numbers_list = list(range(n))"""
+
+    stmt_set = "randint(0, n - 1) in numbers_set"
+    stmt_list = "randint(0, n - 1) in numbers_list"
+
+    t_set = timeit(stmt_set, setup=setup_str, number=10000)
+    t_list = timeit(stmt_list, setup=setup_str, number=10000)
+
+    print(f"{count: >6}: {t_set:e} VS. {t_list:e}")
+
+# # output:
+#     10: 2.965400e-03 VS. 2.833500e-03
+#    100: 2.570800e-03 VS. 4.993500e-03
+#   1000: 2.921200e-03 VS. 2.558300e-02
+#  10000: 3.096000e-03 VS. 2.309046e-01
+# 100000: 3.072600e-03 VS. 2.240059e+00
+
+
+# %%
