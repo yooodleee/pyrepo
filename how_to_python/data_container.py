@@ -274,3 +274,20 @@ for count in [10, 100, 1000, 10000, 100000]:
 
 
 # %%
+hash("Hello World!")
+# output: 
+
+hash(100)
+# output: 
+
+hash([1, 2, 3])
+# output: TypeError: unhashable type: 'list'.
+
+hash({1: 'one', 2: 'two'})
+# output: TypeError: unhashable type: 'dict'
+
+hash((1, 2, 3))
+# output: 
+
+
+# %%
