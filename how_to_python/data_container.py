@@ -156,3 +156,43 @@ for task_text in task_data.split('\n'):
 
 
 # %%
+urgencies = {"Laundry": 3, "Homework": 5, "Museum": 2}
+urgen_keys = urgencies.keys()
+urgen_values = urgencies.values()
+urgen_items = urgencies.items()
+
+print(urgen_keys, urgen_values, urgen_items, sep="\n")
+# # output: 
+# dict_keys(['Laundry', 'Homework', 'Museum'])
+# dict_values([3, 5, 2])
+# dict_items([('Laundry', 3), ('Homework', 5), ('Museum', 2)])
+
+
+# %%
+urgencies["Grocery Shopping"] = 4
+
+print(urgen_keys)
+# output: dict_keys(['Laundry', 'Homework', 'Museum', 'Grocery Shopping'])
+
+print(urgen_values)
+# output: dict_values([3, 5, 2, 4])
+
+print(urgen_items)
+# output: dict_items([('Laundry', 3), ('Homework', 5), ('Museum', 2), ('Grocery Shopping', 4)])
+
+
+# %%
+urgencies = {"Laundry": 3, "Homework": 5, "Museum": 2}
+
+urgen_keys_list = list(urgencies.keys())
+print(urgen_keys_list)
+# output: ['Laundry', 'Homework', 'Museum']
+
+
+# %%
+urgencies["Grocery"] = 4
+print(urgen_keys_list)
+# output: ['Laundry', 'Homework', 'Museum']
+
+
+# %%
