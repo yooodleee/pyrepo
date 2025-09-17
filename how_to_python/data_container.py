@@ -291,3 +291,42 @@ hash((1, 2, 3))
 
 
 # %%
+from collections.abc import Hashable
+
+
+def check_hashability():
+    items = [{"a": 1}, [1], {1}, 1, 1.2, "test", (1, 2), True, None]
+
+    for item in items:
+        print(f"{str(type(item)): <18} | {isinstance(item, Hashable)}")
+
+
+print(f"{'Data Type:': <18} {'Hashable'}")
+check_hashability()
+
+# # output: 
+# Data Type:         Hashable
+# <class 'dict'>     | False
+# <class 'list'>     | False
+# <class 'set'>      | False
+# <class 'int'>      | True
+# <class 'float'>    | True
+# <class 'str'>      | True
+# <class 'tuple'>    | True
+# <class 'bool'>     | True
+# <class 'NoneType'> | True
+
+
+# %%
+text = "Hello, World."
+
+text[-1] = "!"
+# output: TypeError: 'str' object does not support item assignment
+
+
+# %%
+text.replace(".", "!")
+# output: 'Hello, World!'
+
+
+# %%
