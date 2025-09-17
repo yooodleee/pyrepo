@@ -196,3 +196,59 @@ print(urgen_keys_list)
 
 
 # %%
+assert urgencies["Laundry"] == 3
+assert urgencies["Homework"] == 5
+
+
+# %%
+urgencies["Homeworks"]
+# output: KeyError: 'Homeworks'
+
+
+# %%
+if "Homework" in urgencies: 
+    urgency = urgencies["Homework"]
+else:
+    urgency = "N/A"
+
+
+# %%
+def retrieve_urgency(task_title):
+    if task_title in urgencies:
+        urgency = urgencies[task_title]
+    else:
+        urgency = "N/A"
+    return urgency
+
+retrieve_urgency("Homework")
+# output: 5
+
+retrieve_urgency("Homeworks")
+# output: 'N/A'
+
+
+# %%
+urgencies.get("Homework")
+# output: 5
+
+urgencies.get("Homeworks", "N/A")
+# output: 'N/A'
+
+urgencies.get("Homeworks")
+# output: None
+
+
+# %%
+def calculate_something(arg0, arg1, **kwargs):
+    kwarg0 = kwargs.get("kwarg0", 0)
+    kwarg1 = kwargs.get("kwarg1", "normal")
+    kwarg2 = kwargs.get("kwarg2", [])
+    kwarg3 = kwargs.get("kwarg3", "text")
+
+
+calculate_something(arg0, arg1)
+calculate_something(arg0, arg1, kwarg0=5)
+calculate_something(arg0, arg1, kwarg0=5, kwarg3="text")
+
+
+# %%
