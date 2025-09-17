@@ -120,3 +120,39 @@ task_class = Task('Laundry', 'Wash Clothes', 3)
 
 
 # %%
+from collections import namedtuple
+
+Task = namedtuple('Task', 'title desc urgency') # generate named tuple class
+task_nt = Task('Laundry', 'Wash Clothes', 3)    # generate named tuple instance
+
+assert task_nt.title == 'Laundry'
+assert task_nt.desc == 'Wash Clothes'
+
+
+# %%
+Task = namedtuple('Task', 'title, dsec, urgency')
+Task = namedtuple('Task', ['title', 'desc', 'urgency'])
+
+
+# %%
+task_data = '''Laundry,Wash Clothes,3
+Homework,Physics + Math,5
+Museum,Epyptian things,2'''
+
+for task_text in task_data.split('\n'):
+    title, desc, urgency = task_text.split(',')
+    task_nt = Task(title, desc, int(urgency))
+    print(f"--> {task_nt}")
+
+# # output: 
+# --> Task(title='Laundry', desc='Wash Clothes', urgency=3)
+# --> Task(title='Homework', desc='Physics + Math', urgency=5)
+# --> Task(title='Museum', desc='Epyptian things', urgency=2)
+
+
+# %%
+for task_text in task_data.split('\n'):
+    task_nt = Task._make(task_text.split(','))
+
+
+# %%
