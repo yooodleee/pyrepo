@@ -330,3 +330,41 @@ text.replace(".", "!")
 
 
 # %%
+good_stocks = ["AAPL", "GOOG", "AMZN", "NDVA"]
+client0 = ["GOOG", "AMZN"]
+client1 = ["AMZN", "SNAP"]
+
+
+# %%
+def all_contained_in_recommended(recommended, personal):
+    print(f"Is {personal} contained in {recommended}")
+
+    for stock in personal:
+        if stock not in recommended:
+            return False
+    
+    return True
+
+print(all_contained_in_recommended(good_stocks, client0))
+# output: Is ['GOOG', 'AMZN'] contained in ['AAPL', 'GOOG', 'AMZN', 'NDVA'] 
+True
+
+print(all_contained_in_recommended(good_stocks, client1))
+# output: Is ['AMZN', 'SNAP'] contained in ['AAPL', 'GOOG', 'AMZN', 'NDVA']
+False
+
+
+# %%
+good_stocks_set = set(good_stocks)
+
+contained0 = good_stocks_set.issuperset(client0)
+print(f"Is {client0} conatined in {good_stocks}? {contained0}")
+# output: Is ['GOOG', 'AMZN'] conatined in ['AAPL', 'GOOG', 'AMZN', 'NDVA']? True
+
+
+contained1 = good_stocks_set.issuperset(client1)
+print(f"Is {client1} contained in {good_stocks}? {contained1}")
+# output: Is ['AMZN', 'SNAP'] contained in ['AAPL', 'GOOG', 'AMZN', 'NDVA']? False
+
+
+# %%
