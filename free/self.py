@@ -48,3 +48,37 @@ type(print(cal3))
 
 
 # %%
+class Calculator2:
+    def __init__(self, m, n):
+        self.m = m
+        self.n = n
+    
+    def sum(self):
+        result = self.m + self.n
+        return result
+
+    def sub(self):
+        result = self.m - self.n 
+        return result
+    
+    def mul(self):
+        result = self.m * self.n 
+        return result
+    
+    def div(self):
+        result = self.m / self.n 
+        return result
+
+
+cal1 = Calculator2(13, 3)
+cal2 = Calculator2(11, 7)
+cal3 = Calculator2(18, 8)
+cal4 = Calculator2(9, 5)
+
+cal1.sum()
+cal2.sub()
+cal3.mul()
+cal4.div()
+
+
+# %%
