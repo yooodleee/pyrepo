@@ -411,3 +411,31 @@ good_stocks_set.intersection(client1)
 
 
 # %%
+tasks_a = {"Homework", "Laundry", "Grocery"}
+tasks_b = {"Laundry", "Gaming"}
+
+tasks_a | tasks_b 
+# output: {'Laundry', 'Gaming', 'Homework', 'Grocery'}
+
+tasks_a & tasks_b 
+# output: {'Laundry'}
+
+tasks_a ^ tasks_b 
+# output: {'Homework', 'Grocery', 'Gaming'}
+
+tasks_a - tasks_b 
+# output: {'Homework', 'Grocery'}
+
+
+# %%
+small_set = {1, 2}
+large_set = {1, 2, 3, 4}
+
+assert small_set.issubset(large_set) == True
+assert small_set.issuperset(large_set) == False
+
+assert large_set.issubset(small_set) == False
+assert large_set.issuperset(small_set) == True 
+
+
+# %%
