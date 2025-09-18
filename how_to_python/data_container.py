@@ -368,3 +368,46 @@ print(f"Is {client1} contained in {good_stocks}? {contained1}")
 
 
 # %%
+def contained_any_in_recommended(recommended, personal):
+    print(f"Does {personal} contain any in {recommended}?")
+
+    for stock in personal:
+        if stock in recommended:
+            return True
+    
+    return False
+
+
+print(contained_any_in_recommended(good_stocks, client0))
+# output: Does ['GOOG', 'AMZN'] contain any in ['AAPL', 'GOOG', 'AMZN', 'NDVA']?
+True
+
+
+print(contained_any_in_recommended(good_stocks, client1))
+# output: Does ['AMZN', 'SNAP'] contain any in ['AAPL', 'GOOG', 'AMZN', 'NDVA']?
+True
+
+
+# %%
+good_stocks_set & set(client0)
+# output: {'AMZN', 'GOOG'}
+
+bool(good_stocks_set & set(client0))
+# output: True
+
+good_stocks_set & set(client1)
+# output: {'AMZN'}
+
+bool(good_stocks_set & set(client1))
+# output: True
+
+
+# %%
+good_stocks_set.intersection(client0)
+# output: {'AMZN', 'GOOG'}
+
+good_stocks_set.intersection(client1)
+# output: {'AMZN'}
+
+
+# %%
