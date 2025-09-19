@@ -178,3 +178,36 @@ assert "-3".isdigit() == False
 
 
 # %%
+float("7.6b")
+# output: ValueError: could not convert string to float: '7.6b'
+
+int("frozen")
+# output: ValueError: invalid literal for int() with base 10: 'frozen'
+
+
+# %%
+def cast_number(number_str):
+    try:
+        casted_number = float(number_str)
+    except ValueError:
+        print(f"Couldn't cast {repr(number_str)} to a number") # canonical string representation 
+
+    else:
+        print(f"Casting {repr(number_str)} to {casted_number}")
+
+
+cast_number("7.6b")
+# output: Couldn't cast '7.6b' to a number
+
+cast_number("frozen")
+# output: Couldn't cast 'frozen' to a number
+
+cast_number("7.6")
+# output: Casting '7.6' to 7.6 
+
+cast_number("2")
+# output: Casting '2' to 2.0
+
+
+
+# %%
