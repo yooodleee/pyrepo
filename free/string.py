@@ -363,3 +363,24 @@ check_given_string("[1, 2]")
 
 
 # %%
+style_settings = "font-size=large, " "font=Arial, " "color=balck, " "align=center"
+
+# only auto connected with string literal
+print(style_settings)
+# output: font-size=large, font=Arial, color=black, align=center
+
+
+# %%
+settings = {"font_size": "large", "font": "Arial", "color": "black", "align": "center"}
+
+# f-string => auto connect
+styles = f"font-size={settings['font_size']}, " \
+         f"font={settings['font']}, " \
+         f"color={settings['color']}, " \
+         f"align={settings['align']}"
+
+print(styles)
+# output: font-size=large, font=Arial, color=black, align=center
+
+
+# %%
