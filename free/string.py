@@ -340,3 +340,26 @@ else:
 
 
 # %%
+def check_given_string(given_string):
+    try:
+        if not (given_string.startswith("[") and given_string.endswith("]")):
+            raise SyntaxError("Invalid list format")
+
+        source = given_string.strip("[]")
+        ls = [int(x) for x in source.split(",") if x.strip()]
+    
+    except SyntaxError:
+        print(f"Couldn't strip {given_string}")
+    
+    else:
+        print(f"Success {given_string} to {ls}")
+
+
+check_given_string("[1, 2")
+# output: Couldn't strip [1, 2
+
+check_given_string("[1, 2]")
+# output: Couldn't strip [1, 2]
+
+
+# %%
