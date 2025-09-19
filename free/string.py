@@ -211,3 +211,60 @@ cast_number("2")
 
 
 # %%
+numbers_list_str = "[1, 2, 3]"          # literal 
+numbers_tuple_str = "(1, 2, 3)"
+numbers_dict_str = "{1: 'one', 2: 'two', 3: 'three'}"
+
+
+list(numbers_list_str)
+# output: ['[', '1', ',', ' ', '2', ',', ' ', '3', ']']
+
+tuple(numbers_tuple_str)
+# output: ('(', '1', ',', ' ', '2', ',', ' ', '3', ')')
+
+dict(numbers_dict_str)
+# output: dictionary update sequence element #0 has length 1; 2 is required
+
+
+# %%
+assert eval(numbers_list_str) == [1, 2, 3]      # evaluate the given source(string)
+
+assert eval(numbers_tuple_str) == (1, 2, 3)
+
+assert eval(numbers_dict_str) == {1: 'one', 2: 'two', 3: 'three'}
+
+
+# %%
+numbers_lsit_str = "[1, 2, 3]"
+stripped_numbers_str = numbers_list_str.strip("[]")
+numbers_list = [int(x) for x in stripped_numbers_str.split(",")]
+
+print(numbers_list)
+# output: [1, 2, 3]
+
+
+# %%
+numbers_tuple_str = "(1, 2, 3)"
+stripped_numbers_str = numbers_tuple_str.strip("()")
+
+print(stripped_numbers_str)
+# output: 1, 2, 3
+
+eval(stripped_numbers_str)
+# output: (1, 2, 3)
+
+assert eval(stripped_numbers_str) == (1, 2, 3)
+
+
+# %%
+numbers_dict_str = "{1: 'one', 2: 'two', 3: 'three'}"
+stripped_numbers_str = numbers_dict_str.strip("{}")
+
+print(stripped_numbers_str)
+# output: 1: 'one', 2: 'two, 3: 'three' 
+
+eval(stripped_numbers_str)
+# output: invalid syntax 
+
+
+# %%
