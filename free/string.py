@@ -268,3 +268,75 @@ eval(stripped_numbers_str)
 
 
 # %%
+eval("[1, 2")
+# output: SyntaxError: unexpected EOF while parsing
+
+eval("[1, 2]")
+# output: 
+
+exec("[1, 2]")
+# output: 
+
+exec("[1, 2")
+# output: SyntaxError: unexpected EOF while parsing
+
+
+# %%
+
+# Wrong case
+given_string = "[1, 2"
+
+try:
+    source = given_string.strip("[]")           # "1, 2"
+    ls = [int(x) for x in source.split(",")]    # [1, 2]
+
+except SyntaxError:
+    print(f"Couldn't strip {given_string}")
+
+else:
+    print(f"Success {given_string} to {ls}")
+
+# output: Success [1, 2 to [1, 2]
+
+
+
+# %%
+
+# Correct case 1
+import ast
+
+given_string = "[1, 2"
+# given_string = "[1, 2]"
+
+try:
+    ls = ast.literal_eval(given_string) # safely evaluate given string => SyntaxError
+
+except SyntaxError:
+    print(f"Couldn't strip {given_string}")
+
+else:
+    print(f"Success {given_string} to ls")
+
+# output: Couldn't strip [1, 2
+
+
+# %%
+
+# Correct case 2
+given_string = "[1, 2"
+
+try:
+    if not (given_string.startswith("[") and given_string.endswith("]")):
+        raise SyntaxError("Invalid list format")
+    
+    source = given_string.strip("[]")
+    ls = [int(x) for x in source.split(",") if x.strip()]
+
+except SyntaxError:
+    print(f"Couldn't strip {given_string}")
+
+else:
+    print(f"Success {given_string} to {ls}")
+
+
+# %%
