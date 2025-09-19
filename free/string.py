@@ -384,3 +384,66 @@ print(styles)
 
 
 # %%
+style_settings = ["font-size=large", "font=Arial", "color=black", "align=center"]
+merged_style = ", ".join(style_settings)    # Concatenate any number and strings.
+
+print(merged_style)
+# output:  font-size=large, font=Arial, color=black, align=center
+
+
+# %%
+style_settings = ("font-size=large", "font=Arial", "color=black", "align=center")
+merged_style = ", ".join(style_settings)
+
+print(merged_style)
+# output: font-size=large, font=Arial, color=black, align=center
+
+
+# %%
+tasks = ["one", "two", "three", "four", "five"]
+note = ", ".join(tasks)
+
+print("Remaining Tasls: ", tasks)
+# output: ['one', 'two', 'three', 'four', 'five']
+
+tasks.remove("five")
+tasks.append("six")
+
+print("Remaining Tasks: ", tasks)
+# output: ['one', 'two', 'three', 'four', 'six']
+
+tasks.remove('seven')
+# output: ValueError: list.remove(x): x not in list
+
+
+
+# %%
+task_data = """5001,one,3
+5341,two,1
+7078,three,5"""
+
+processed_tasks = []
+for data_line in task_data.split("\n"):     # split() -> only one seprator
+    processed_task = data_line.split(",")   # split()
+    processed_tasks.append(processed_task)
+
+print(processed_tasks)
+# output: [['5001', 'one', '3'], ['5341', 'two', '1'], ['7078', 'three', '5']]
+
+
+# %%
+messy_data = "process,mess_data_mixed,separators"
+
+separated_words = []
+for word in messy_data.split(","):
+    if word.find("_") < 0:  # return -1 on failure
+        separated_words.append(word)
+    else:
+        separated_words.extend(word.split("_"))     # compare with append()
+
+print(separated_words)
+# output: ['process', 'mess', 'data', 'mixed', 'separators']
+# output2(separated_words.append()): ['process', ['mess', 'data', 'mixed'], 'separators']
+ 
+ 
+# %%
