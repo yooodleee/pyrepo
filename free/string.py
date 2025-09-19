@@ -145,3 +145,36 @@ print(f"result: {sci_number:.2%}")
 
 
 # %%
+age = input("enter your age: ")
+
+type(age)
+# output: <class 'str'>
+
+assert age > 20
+
+
+# %%
+bad_username0 = "123!@#"
+assert bad_username0.isalnum() == False # a-z, A-Z, 1-9
+
+bad_username1 = "abc..."
+assert bad_username1.isalnum() == False
+
+good_username = "1a2b3c"
+assert good_username.isalnum() == True 
+
+assert "abcdefg".isalpha() == True # alphabetic string
+
+assert "12345".isnumeric() == True # numeric string
+
+assert "3.5".isnumeric() == False 
+assert "-3".isnumeric() == False 
+
+assert "3.5".isdecimal() == False 
+assert "-3".isdecimal() == False
+
+assert "3.5".isdigit() == False
+assert "-3".isdigit() == False
+
+
+# %%
