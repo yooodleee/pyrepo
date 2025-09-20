@@ -57,3 +57,96 @@ integers[0] = 'zero'    # allocate new val to tuple instance
 
 
 # %%
+nums = ([1, 2], [1, 2])
+nums[0].append(3)
+nums 
+# output: ([1, 2, 3], [1, 2])
+
+
+# %%
+nums = ((1, 2), (1, 2))
+nums[0].append(3)
+nums 
+# output: AttributeError: 'tuple' object has no attribute 'append'
+
+
+# %%
+tasks = [
+    {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3},
+    {'title': 'Homework', 'desc': 'Physics + Math', 'urgency': 5},
+    {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}
+]
+
+tasks.sort()
+# output: TypeError: '<' not supported between instances of 'dict' and 'dict'
+
+
+# %%
+nums = [5, 7, 1, 2, 4, 8, 6, 9]
+nums.sort()     # inplace sorting -> return None
+nums 
+# output: [1, 2, 4, 5, 6, 7, 8, 9]
+
+
+# %%
+names = ['Danny', 'Aaron', 'Zack', 'Jennifer', 'Mike', 'David']
+names.sort(reverse=True)    # inplace sorting -> return None 
+names 
+# output: ['Zack', 'Mike', 'Jennifer', 'David', 'Danny', 'Aaron']
+
+
+# %%
+mixed = [3, 1, 2, 'John', 'David', 'Danny', 'Aaron']
+mixed.sort()
+mixed 
+# output: '<' not supported between instances of 'str' and 'int'
+
+
+# %%
+# ascending or descending, according to their key function values.
+mixed.sort(key=str)
+mixed 
+# output: [1, 2, 3, 'Aaron', 'Danny', 'David', 'John']
+
+
+# %%
+mixed.sort(key=int)
+mixed
+# output: ValueError: invalid literal for int() with base 10: 'Aaron'
+
+
+# %%
+mixed = [3, 1, 2, 'John', ['c', 'd'], ['a', 'b']]
+mixed.sort(key=str)
+mixed 
+# output: [1, 2, 3, 'John', ['a', 'b'], ['c', 'd']]
+
+
+# %%
+mixed.sort(key=int)
+mixed 
+# output: invalid literal for int() with base 10: 'John'
+
+
+# %%
+def using_urgency_level(task):
+    return task['urgency']
+
+tasks.sort(key=using_urgency_level, reverse=True)
+tasks
+# # output: 
+# [{'title': 'Homework', 'desc': 'Physics + Math', 'urgency': 5},
+#  {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3},
+#  {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}]
+
+
+# %%
+tasks.sort(key=lambda x: x['urgency'], reverse=True)
+tasks
+# # output: 
+# [{'title': 'Homework', 'desc': 'Physics + Math', 'urgency': 5},
+#  {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3},
+#  {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}]
+
+
+# %%
