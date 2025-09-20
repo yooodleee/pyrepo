@@ -164,3 +164,78 @@ asyncio.run(main())
 # Task 1: start
 # Task 2: start
 # Task 1: done
+
+
+# %%
+# Exception
+ 
+import asyncio 
+
+async def task1():
+    await asyncio.sleep(1)
+    raise ValueError("ValueError from task1")
+
+
+async def task2():
+    await asyncio.sleep(2)
+    raise KeyError("KeyError from task2")
+
+
+async def main():
+    results = await asyncio.gather(task1(), task2(), return_exceptions=True)
+    # results = await asyncio.gather(task1(), task2())
+
+    for result in results:
+        if isinstance(result, Exception):
+            print(f"Caught exception: {result}")
+        else:
+            print(f"Task result: {result}")
+
+
+asyncio.run(main())
+# output: 
+# Caught exception: ValueError from task1
+# Caught exception: KeyError from task2
+
+
+# %%
+# ExceptionGroups
+
+import asyncio
+from exceptiongroup import ExceptionGroup # Python 3.11
+
+async def task1():
+    await asyncio.sleep(1)
+    raise ValueError("ValueError from task1")
+
+
+async def task2():
+    await asyncio.sleep(2)
+    raise KeyError("KeyError from task2")
+
+
+async def main():
+    # gathering all exceptions
+    results = await asyncio.gather(task1(), task2(), return_exceptions=True)
+    
+    exceptions = [result for result in results if isinstance(result, Exception)]
+    if exceptions:
+        raise ExceptionGroup("Multiple exceptions occurred", exceptions)
+
+
+try:
+    asyncio.run(main())
+
+except* ValueError as e:
+    for sub_exception in e.exceptions:
+        print(f"Caught ValueError: {sub_exception}")
+
+except* KeyError as e:
+    for sub_exception in e.exceptions:
+        print(f"Caught KeyError: {sub_exception}")
+
+
+# output: 
+# Caught ValueError: ValueError from task1
+# Cuahgt KeyError: KeyError from task2
+
