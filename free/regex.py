@@ -159,3 +159,75 @@ for pattern in patterns:
 
 
 # %%
+re.findall(r"a|b", "a c c d b c a")
+# output: ['a', 'b', 'a']
+
+re.findall(r"ab", "a c c d b c a ab ce ab")
+# output: ['ab', 'ab']
+
+re.findall(r"[^c]", "a c c d b c a ab ce ab")
+# # output: 
+# ['a',
+#  ' ',
+#  ' ',
+#  ' ',
+#  'd',
+#  ' ',
+#  'b',
+#  ' ',
+#  ' ',
+#  'a',
+#  ' ',
+#  'a',
+#  'b',
+#  ' ',
+#  'e',
+#  ' ',
+#  'a',
+#  'b']
+
+
+# %%
+match = re.search(r"(\w\d)+", "xyza2b1c3dd")
+match 
+# output: <re.Match object; span=(3, 9), match='a2b1c3'>
+
+print(f"matched: {match.group()}")
+# output: matched: a2b1c3
+
+print(f"span: {match.span()}")
+# output: (3, 9)
+
+print(f"start: {match.start()} & end: {match.end()}")
+# output: start: 3 & end: 9
+
+
+# %%
+match = re.match("pattern", "string to match")  # Try to apply the pattern at the start of the string.
+if match:
+    print("do something with the matched")
+else:
+    print("found no matches")
+
+# output: found no matches
+
+
+# %%
+match = re.match(r"(\w+), (\w+)", "Homework, urgent: today")
+print(match)
+# output: <re.Match object; span=(0, 16), match='Homework, urgent'>
+
+match.groups()
+# # output: ('Homework', 'urgent')
+
+match.group(0)
+# output: 'Homework, urgent'
+
+match.group(1)
+# output: 'Homework'
+
+match.group(2)
+# output: 'urgent'
+
+
+# %%
