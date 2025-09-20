@@ -239,3 +239,41 @@ except* KeyError as e:
 # Caught ValueError: ValueError from task1
 # Cuahgt KeyError: KeyError from task2
 
+
+# %%
+from asyncio import TaskGroup 
+import asyncio
+
+async def task(n):
+    if n % 2 == 0:
+        await asyncio.sleep(0.1)
+        raise ValueError(f"ValueError in task {n}")
+    return f"Task {n} completed successfully"
+
+
+async def main():
+    try:
+        results = []
+        async with TaskGroup() as tg:
+            for i in range(10):
+                t = tg.create_task(task(i))
+                results.append(t)
+    
+    except* ValueError as e:
+        print(e.exceptions)
+
+    for temp_task in results:
+        if not temp_task.cancelled() and temp_task.exception() is None:
+            print(temp_task.result())
+        else:
+            print(f"Task {temp_task.get_name()} did not complete successfully")
+
+
+async def main2():
+    tasks = [task(i) for i in range(4)]
+    result = await asyncio.gather(*tasks, return_exceptions=True)
+    print(result)
+
+
+asyncio.run(main())
+asyncio.run(main2())
