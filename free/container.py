@@ -150,3 +150,56 @@ tasks
 
 
 # %%
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+    
+    # def get_by_title(self):
+    #     return self.title
+    
+    # def get_by_desc(self):
+    #     return self.desc
+    
+    # def get_by_urgency(self):
+    #     return self.urgency
+
+task_class = Task('Laundry', 'Wash Clothes', 3) # __dict__
+task_class
+# output: <__main__.Task at 0x1cd3235ac70>
+
+
+# %%
+from collections import namedtuple
+
+Task = namedtuple('Task', 'title desc urgency') # generate named tuple class
+task_nt = Task('Laundry', 'Wash Clothes', 3)    # generate named tuple instance
+
+assert task_nt.title == 'Laundry'               # access to instance's attribute
+assert task_nt.desc == 'Wash Clothes'
+assert task_nt.urgency == 3
+
+
+# %%
+Task = namedtuple('Task', 'title, desc, urgency')           # better.
+Task = namedtuple('Task', ['title', 'desc', 'urgency']) 
+
+
+# %%
+task_data = '''Laundry,Wash Clothes,3
+Homework,Physics + Math,5
+Museum,Egyptian things,2'''
+
+for task_text in task_data.split('\n'): 
+    title, desc, urgency = task_text.split(',')
+    task_nt = Task(title, desc, int(urgency))
+    print(f"--> {task_nt}")
+
+# # output: 
+# --> Task(title='Laundry', desc='Wash Clothes', urgency=3)
+# --> Task(title='Homework', desc='Physics + Math', urgency=5)
+# --> Task(title='Museum', desc='Egyptian things', urgency=2)
+
+
+# %%
