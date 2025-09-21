@@ -203,3 +203,98 @@ for task_text in task_data.split('\n'):
 
 
 # %%
+urgencies = {"Laundry": 3, "Homework": 5, "Museum": 2}
+urgen_keys = urgencies.keys()    # dynamic view instance 
+urgen_keys
+# output: dict_keys(['Laundry', 'Homework', 'Museum'])
+
+urgen_values = urgencies.values()  # dynamic view instance
+urgen_values
+# output: dict_values([3, 5, 2])
+
+urgen_items = urgencies.items()   # dynamic view instance
+urgen_items
+# output: dict_items([('Laundry', 3), ('Homework', 5), ('Museum', 2)])
+
+
+# %%
+urgencies["Park"] = 4
+urgen_keys
+# output: dict_keys(['Laundry', 'Homework', 'Museum', 'Park'])
+
+urgen_values
+# output: dict_values([3, 5, 2, 4])
+
+urgen_items
+# output: dict_items([('Laundry', 3), ('Homework', 5), ('Museum', 2), ('Park', 4)])
+
+
+# %%
+# anti-pattern 
+urgencies = {"Laundry": 3, "Homework": 5, "Museum": 2}
+
+urgen_keys_list = list(urgencies.keys())        # not sync with dictionary instance 
+urgen_keys_list
+# output: ['Laundry', 'Homework', 'Museum'] 
+
+urgencies["Park"] = 4
+urgen_keys_list
+# output: ['Laundry', 'Homework', 'Museum']
+
+
+# %%
+assert urgencies["Laundry"] == 3
+assert urgencies["Homework"] == 5
+
+assert urgencies["Homeworks"] == 4  # wrong access
+# output: KeyError: 'Homeworks'
+
+
+# %%
+if "Homework" in urgencies:     # not Pythonic(wrong case)
+    urgency = urgencies["Homework"]
+else:
+    urgency = "N/A"
+
+
+# %%
+def retrieve_urgency(task_title):   
+    if task_title in urgencies:
+        urgency = urgencies[task_title]
+    else:
+        urgency = "N/A"
+    return urgency
+
+retrieve_urgency('Homework')
+# output: 5 
+
+retrieve_urgency('Homeworks')
+# output: 'N/A'
+
+
+# %%
+urgencies.get("Homework")   # key: "Homework"
+# output: 5
+
+urgencies.get("Homeworks", "N/A")   # key: "Homeworks"(wrong access), default: "N/A"
+# output: 'N/A'
+
+urgencies.get("Homeworks") # key: "Homeworks"(wrong access)
+# output: None
+
+
+# %%
+def calculate_something(arg0, arg1, **kwargs):  # kwargs: dictionary instance
+    kwarg0 = kwargs.get("kwarg0", 0)
+    kwarg1 = kwargs.get("kwarg1", "normal")
+    kwarg2 = kwargs.get("kwarg2", [])
+    kwarg3 = kwargs.get("kwarg3", "text")
+    # ...
+
+
+# calculate_something(arg0, arg1)
+# calculate_something(arg0, arg1, kwarg0=5)
+# calculate_something(arg0, arg1, kwarg0=5, kwarg3="text")
+
+
+# %%
