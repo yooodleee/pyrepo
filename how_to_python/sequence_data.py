@@ -79,3 +79,36 @@ numbers[odd_range]
 
 
 # %%
+tasks = """
+0....5..............20..........................48......
+1001 Laundry        Wash all clothes            3
+1002 Museum Visit   Go to the Egypt exhibit     4
+1003 Do Homework    Physics and math            5
+1004 Go to Gym      Work out for 1 hour         2
+"""
+
+task_id = slice(5)
+task_title = slice(5, 20)
+task_desc = slice(20, 48)
+task_urgency = slice(48, 49)
+
+task_lines = tasks.split("\n")[2:-1]
+
+tasks = []
+for line in task_lines:
+    task = (line[task_id].strip(),
+            line[task_title].strip(),
+            line[task_desc].strip(),
+            line[task_urgency].strip())
+    tasks.append(task)
+
+
+print(tasks)
+# output: 
+# [('1001', 'Laundry', 'Wash all clothes', '3'), 
+#  ('1002', 'Museum Visit', 'Go to the Egypt exhibit', '4'), 
+#  ('1003', 'Do Homework', 'Physics and math', '5'), 
+#  ('1004', 'Go to Gym', 'Work out for 1 hour', '2')]
+
+
+# %%
