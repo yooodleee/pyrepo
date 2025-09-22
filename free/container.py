@@ -387,3 +387,37 @@ text.replace("!", ".")
 
 
 # %%
+good_stocks = ["APPL", "GOOG", "AMZN", "NDVA"]
+client0 = ["GOOG", "AMZN"]
+client1 = ["AMZN", "SNAP"]
+
+def all_contained_in_recommended(recommended, personal):
+    print(f"Is {personal} contained in {recommended}")
+
+    for stock in personal:
+        if stock not in recommended:    # bad case -> Time Complexity: O(n)
+            return False
+    
+    return True
+
+
+print(all_contained_in_recommended(good_stocks, client0))
+# output: Is ['GOOG', 'AMZN'] contained in ['APPL', 'GOOG', 'AMZN', 'NDVA'] True
+
+print(all_contained_in_recommended(good_stocks, client1))
+# output: Is ['AMZN', 'SNAP'] contained in ['APPL', 'GOOG', 'AMZN', 'NDVA'] False
+
+
+# %%
+good_stocks_set = set(good_stocks)  # generate set instance => better case -> Time Compleixty(O(1))
+
+contained = good_stocks_set.issuperset(client0) # whether this set contains another set.
+print(f"Is {client0} contained in {good_stocks}? {contained}")
+# output: Is ['GOOG', 'AMZN'] contained in ['APPL', 'GOOG', 'AMZN', 'NDVA']? True
+
+contained1 = good_stocks_set.issuperset(client1)
+print(f"Is {client1} contained in {good_stocks}? {contained1}")
+# output: Is ['AMZN', 'SNAP'] contained in ['APPL', 'GOOG', 'AMZN', 'NDVA']? False
+
+
+# %%
