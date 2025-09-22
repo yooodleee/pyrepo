@@ -149,3 +149,50 @@ numbers
 
 
 # %%
+assert (8 in [1, 2, 3, 4, 5]) == False 
+
+assert ('cool' in 'Python is cool') == True 
+
+assert (404 in (404, 'Page Not Found')) 
+
+
+# %%
+[1, 2, 3, 4, 5].index(4)
+# output: 3
+
+(404, 'Page Not Found').index('Page Not Found')
+# output: 1
+
+'Python is cool'.index('cool')
+# output: 10
+
+
+# %%
+[1, 2, 3, 4, 5].index(8)
+# output: ValueError 8 is not in list
+
+
+# %%
+the_list = [1, 2, 3, 4, 5]
+
+
+def process_item_try(item):
+    try:
+        item_index = the_list.index(item)
+    except ValueError:
+        print(f"{item} is not in the_list")
+    
+    print(f"{item} in {item_index}")
+
+
+# %%
+def process_item_check_first(item):
+    if item in the_list:
+        item_index = the_list.index(item)
+        print(f"{item} in {item_index}")
+    
+    else:
+        print(f"{item} is not in the_list")
+
+
+# %%
