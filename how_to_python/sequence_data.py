@@ -112,3 +112,40 @@ print(tasks)
 
 
 # %%
+numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+numbers[:3] = [10, 11, 12]
+numbers
+# output: [10, 11, 12, 3, 4, 5, 6, 7, 8]
+
+
+# %%
+numbers[3:] = [13, 14, 15, 16, 17, 18, 19, 20]
+numbers
+# output: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
+
+
+# %%
+numbers[:5] = [0, 1]
+numbers 
+# output: [0, 1, 15, 16, 17, 18, 19, 20]
+
+
+# %%
+numbers[::2] = [0, 0, 0, 0]
+numbers
+# output: [0, 1, 0, 16, 0, 18, 0, 20]
+
+
+# %%
+del numbers[:4]
+numbers
+# output: [0, 18, 0, 20]
+
+
+# %%
+numbers[-2:] = []
+numbers 
+# output: [0, 18]
+
+
+# %%
