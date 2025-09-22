@@ -298,3 +298,92 @@ def calculate_something(arg0, arg1, **kwargs):  # kwargs: dictionary instance
 
 
 # %%
+failed_dict = {[0, 2]: "even"}
+# output: TypeError: unhashable type: 'list' 
+
+failed_set = {{"a": 0}}
+# output: TypeError: unhashable type: 'dict'
+
+
+# %%
+from timeit import timeit
+
+for count in [10, 100, 1000, 10000, 100000]:
+    # setup string for check exec time 
+    setup_str = f"""from random import randint; n = {count}; numbers_set = set(range(n)); numbers_list = list(range(n))"""
+
+    stmt_set = "randint(0, n - 1) in numbers_set" 
+    stmt_list = "randint(0, n - 1) in numbers_list"
+
+    t_set = timeit(stmt_set, setup=setup_str, number=10000)     # time complexity -> O(1) -> hash table(better)
+    t_list = timeit(stmt_list, setup=setup_str, number=10000)   # time complexity -> O(n) -> List 
+
+    print(f"{count: >6}: {t_set:e} VS. {t_list:e}")
+
+# # output: 
+#     10: 2.616400e-03 VS. 2.748100e-03
+#    100: 2.515300e-03 VS. 4.859400e-03
+#   1000: 2.777400e-03 VS. 2.555810e-02
+#  10000: 3.149900e-03 VS. 2.169713e-01
+# 100000: 3.178300e-03 VS. 2.213404e+00
+
+
+# %%
+hash("Hello World!")
+# output: -718917682246089082
+
+hash(100)
+# output: 100
+
+hash([1, 2, 3])
+# output: TypeError: unhashable type: 'list'
+
+hash({1: 'one', 2: 'two', 3: 'three'})
+# output: TypeError: unhashable type: 'dict'
+
+hash((1, 2, 3))
+# output: 529344067295497451
+
+hash({1, 2, 3})
+# output: TypeError: unhashable type: 'set'
+
+
+# %%
+from collections.abc import Hashable
+
+def check_hashability():
+    # dict, list, set, int, float, str, tuple, bool, None => Multiple type in items
+    items = [{"a": 1}, [1], {1}, 1, 1.2, "test", (1, 2), True, None]
+
+    for item in items:
+        # return boolean 
+        print(f"{str(type(item)): <18} | {isinstance(item, Hashable)}")
+
+
+print(f"{'Data Type': <18} {'Hashable'}")
+check_hashability()
+
+# # output: 
+# Data Type          Hashable
+# <class 'dict'>     | False
+# <class 'list'>     | False
+# <class 'set'>      | False
+# <class 'int'>      | True
+# <class 'float'>    | True
+# <class 'str'>      | True
+# <class 'tuple'>    | True
+# <class 'bool'>     | True
+# <class 'NoneType'> | True
+
+
+# %%
+text = "Hello, World!"  # str also immutable data
+
+text[-1] = "."
+# output: TypeError: 'str' object doest not support item assignment
+
+text.replace("!", ".")
+# output: 'Hello, World.'
+
+
+# %%
