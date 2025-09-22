@@ -260,3 +260,35 @@ id(tasks.index(Task("Ticket", 2)))
 
 
 # %%
+task = (1001, "Laundry", 5)     
+task_id, task_title, task_urgency = task    # 1:1 tuple unpacking
+
+print(task_id, task_title, task_urgency)
+# output: 1001 Laundry 5
+
+
+# %%
+user_data = ("python_user", 35, "male") 
+username, age, gender = user_data           # 1:1 tuple unpacking
+
+print(username, age, gender)
+# output: python_user 35 male
+
+
+# %%
+x0, y0 = (90, 20)           # multi assignment technique 
+(x1, y1) = 90, 20
+(x2, y2) = (90, 20)
+
+assert x0 == x1 == x2 == 90
+assert y0 == y1 == y2 == 20
+
+
+# %%
+x3, y3 = 90, 20
+
+assert x3 == 90
+assert y3 == 20
+
+
+# %%
