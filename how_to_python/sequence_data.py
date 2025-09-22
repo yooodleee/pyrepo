@@ -292,3 +292,48 @@ assert y3 == 20
 
 
 # %%
+# bad case
+player_scores = [6.1, 6.5, 6.8, 7.1, 7.3, 7.6, 8.2, 8.9]
+
+lowest0 = player_scores[0]
+middles0 = player_scores[1:-1]
+highest0 = player_scores[-1]
+
+final0 = sum(middles0) / len(middles0)
+final0
+# output: 7.25
+
+
+# %%
+lowest1, middles1, highest1 = player_scores
+# output: ValueError: too many values to unpack (expected 3)
+
+
+# %%
+# capture all asterisk
+lowest2, *middles2, highest2 = player_scores    # starred expression(*)
+final2 = sum(middles2) / len(middles2)
+
+assert lowest0 == lowest2 == player_scores[0]
+assert middles0 == middles2 == player_scores[1:-1]
+assert highest0 == highest2 == player_scores[-1]
+
+
+# %%
+a, *b, c = "abcdefg"
+assert b == ['b', 'c', 'd', 'e', 'f', 'g']
+
+
+# %%
+first_score, *scores, last_scores = [9.1, 8.9]
+
+assert scores == []     # empty list
+
+
+# %%
+# multiple starred expression(wrong case)
+score0, *score0, *scores1, score1 = [9.1, 8.8, 9.2, 7.7, 8.4]
+# output: SyntaxError: multiple starred expression in assignment
+
+
+# %%
