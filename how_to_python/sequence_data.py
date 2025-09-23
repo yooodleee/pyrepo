@@ -337,3 +337,22 @@ score0, *score0, *scores1, score1 = [9.1, 8.8, 9.2, 7.7, 8.4]
 
 
 # %%
+def update_status(t_id, t_status):
+    # use task_id to locate the task in the database and update its status
+    pass
+
+task = (1001, "Laundry", "Wash Clothes", "completed")
+task_id, task_title, task_desc, task_status = task
+
+update_status(task_id, task_status)
+
+
+# %%
+task_id, _, _, task_status = task
+
+
+# %%
+task_id, *_, task_status = task 
+
+
+# %%
