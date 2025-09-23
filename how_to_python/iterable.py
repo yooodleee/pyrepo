@@ -21,3 +21,35 @@ desired_output = {key: value for key, value in zip(id_numbers, titles)}     # di
 
 
 # %%
+tasks = ["task0", "task1", "task2"] # iterable(tasks list)
+
+tasks_iterator = iter(tasks)    # iter() -> generate iterator
+tasks_iterator
+# output: <list_iterator at 0x259268892e0>
+
+
+# %%
+next(tasks_iterator)
+# output: 'task0'
+
+next(tasks_iterator)
+# output: 'task1'
+
+next(tasks_iterator)
+# output: 'task2'
+
+next(tasks_iterator)
+# output: StopIteration 
+
+
+# %%
+for task in tasks:  # auto except StopIteration
+    print(task)
+
+# output: 
+# task0
+# task1
+# task2
+
+
+# %%
