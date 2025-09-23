@@ -147,3 +147,44 @@ assert zipped_tasks == {101: "Laundry", 102: "Homework", 103: "Soccer"}
 
 
 # %%
+from collections import namedtuple
+
+Task = namedtuple("Task", "title, desc, urgency")   # generate use defined class with namedtuple
+
+tasks = [
+    Task("Homework", "Physics and math", 5),
+    Task("Laundry", "Wash Clothes", 3),
+    Task("Museum", "Egypt exhibit", 4)
+]
+
+
+# %%
+# bad case
+task_titles = []
+for task in tasks:
+    task_titles.append(task.title)  # time compleixty: O(n)
+
+assert task_titles == ['Homework', 'Laundry', 'Museum']
+
+
+# %%
+# better case(list comprehension)
+titles = [task.title for task in tasks]
+
+assert titles == ['Homework', 'Laundry', 'Museum']
+
+
+# %%
+# user defined method -> bad case
+def get_title(task):
+    return task.title
+
+titles = list(map(get_title, tasks))
+
+
+# %%
+# functional programming -> list() + map()
+titles = list(map(lambda x:x.title, tasks))
+
+
+# %%
