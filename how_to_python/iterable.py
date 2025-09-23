@@ -105,3 +105,45 @@ isIterable(reversed("Hello"))
 
 
 # %%
+# generate instance with literal
+list_obj = [1, 2, 3]
+
+tuple_obj = (404, "Connection Error")
+
+dict_obj = {"one": 1, "two": 2}
+
+set_obj = {1, 2, 3}
+
+
+# %%
+## generate new collection instance with iterable
+integers_list = list(range(10))
+assert integers_list == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+integers_tuple = tuple(integers_list)
+assert integers_tuple == (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+
+dict_items = [("zero", 0), ("one", 1), ("two", 2)]
+integers_dict = dict(dict_items)
+assert integers_dict == {'zero': 0, 'one': 1, 'two': 2}
+
+even_numbers = (-2, 4, 0, 2, 4, 2)
+unique_evens = set(even_numbers)
+assert unique_evens == {0, 2, 4, -2}
+
+
+# %%
+numbers_str = ["1.23", "4.56", "7.89"]
+
+numbers_float = list(map(float, numbers_str))   # generate map iterator 
+
+assert numbers_float == [1.23, 4.56, 7.89]
+
+
+# %%
+zipped_tasks = dict(zip(id_numbers, titles))    # couple with iterables -> id_numbers: key, titles: value 
+
+assert zipped_tasks == {101: "Laundry", 102: "Homework", 103: "Soccer"}
+
+
+# %%
