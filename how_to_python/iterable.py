@@ -236,3 +236,19 @@ assert filtered_titles0 == filtered_titles1
 
 
 # %%
+flattened_items0 = []
+for task in tasks:
+    for item in task:
+        flattened_items0.append(item)
+
+assert flattened_items0 == ['Homework', 'Physics and math', 5, 'Laundry',
+                            'Wash Clothes', 3, 'Museum', 'Egypt exhibit', 4]
+
+
+# %%
+flattened_items1 = [item for task in tasks for item in task]
+
+assert flattened_items0 == flattened_items1
+
+
+# %%
