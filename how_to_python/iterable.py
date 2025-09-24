@@ -219,3 +219,20 @@ assert squares == {0, 1, 4, 9}
 
 
 # %%
+# bad case -> non comprehension 
+filtered_titles0 = []
+for task in tasks:
+    if task.urgency > 3:
+        filtered_titles0.append(task.title)
+
+assert filtered_titles0 == ['Homework', 'Museum']
+
+
+# %%
+# better case -> filtering condition (if)
+filtered_titles1 = [task.title for task in tasks if task.urgency > 3]   # if filtering
+
+assert filtered_titles0 == filtered_titles1
+
+
+# %%
