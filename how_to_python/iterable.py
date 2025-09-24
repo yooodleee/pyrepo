@@ -188,3 +188,34 @@ titles = list(map(lambda x:x.title, tasks))
 
 
 # %%
+# dictionary comprehension
+title_dict0 = {}
+for task in tasks: 
+    title_dict0[task.title] = task.desription
+
+title_dict1 = {task.title: task.description for task in tasks}
+
+assert title_dict0 == title_dict1
+
+
+# %%
+# set comprehension
+title_set0 = set()
+
+for task in tasks:
+    title_set0.add(task.title)
+
+title_set1 = {task.title for task in tasks}
+
+assert title_set0 == title_set1 == {'Homework', 'laundry', 'Museum'}
+
+
+# %%
+numbers = [-3, -2, -1, 0, 1, 2, 3]
+
+squares = [x * x for x in numbers]
+
+assert squares == {0, 1, 4, 9}
+
+
+# %%
