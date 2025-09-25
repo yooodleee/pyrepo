@@ -374,3 +374,42 @@ list(zip_longest(range(3), range(4), range(5)))
 
 
 # %%
+completed_tasks = [
+    Task("Toaster", "Clean the toaster", 2),
+    Task("Camera", "Export photos", 4),
+    Task("Floor", "Mop the floor", 3)
+]
+
+
+# %%
+# bad case
+all_tasks = tasks + completed_tasks # generate temporary all_tasks -> memory overhead
+for task in all_tasks:
+    print(task.title)
+
+# # output: 
+# Homework
+# Laundry
+# Museum
+# Toaster
+# Camera
+# Floor
+
+
+# %%
+# better case -> chaining of iterable
+from itertools import chain
+
+for task in chain(tasks, completed_tasks):
+    print(task.title)
+
+# # output: 
+# Homework
+# Laundry
+# Museum
+# Toaster
+# Camera
+# Floor
+
+
+# %%
