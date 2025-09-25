@@ -343,3 +343,34 @@ for task, date, location in zip(tasks, dates, locations):
 
 
 # %%
+# wrong case
+for task, date, location in zip(enumerate(tasks, dates, locations)):    # 3 arguments
+    print(f"{task.title}: by {date} at {location}")
+
+# output: TypeError: enumerate() takes at most 2 arguments
+
+
+# %%
+for task, date, location in zip(tasks, dates, locations):
+    zipped_tasks = task, date, location
+    enumerate(zipped_tasks)
+    print(zipped_tasks)
+
+# # output: 
+# (Task(title='Homework', description='Physics and math', urgency=5), 'May 5', 'School')
+# (Task(title='Laundry', description='Wash clothes', urgency=3), 'May 9, 2022', 'Home')
+# (Task(title='Museum', description='Egypt exhibit', urgency=4), 'May 11, 2022', 'Downtown')
+
+
+# %%
+from itertools import zip_longest
+
+# the shorter iterables are exhausted, 
+# the fillvalue is substituted in their place(None).
+list(zip_longest(range(3), range(4), range(5)))
+
+# # output: 
+# [(0, 0, 0), (1, 1, 1), (2, 2, 2), (None, 3, 3), (None, None, 4)]
+
+
+# %%
