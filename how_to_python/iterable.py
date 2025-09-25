@@ -485,3 +485,44 @@ print(f"***first urgent task: {first_urgent_task0}")
 
 
 # %%
+for number in range(5):
+    print(f"Number: {number}")
+    if number == 2:
+        print("Breaking at 2")
+        break
+
+# output: 
+# Number: 0
+# Number: 1
+# Breaking at 2
+
+
+# %%
+number = 0
+
+while number < 100:
+    if number == 2:
+        print("Breaking at 2")
+        break
+    else:
+        number += 1
+        print(f"Number: {number}")
+
+# output: 
+# Number: 1
+# Number: 2
+# Breaking at 2
+
+
+# %%
+first_urgent_task1 = None   
+
+for task in tasks:
+    if task.urgency == 5:
+        first_urgent_task1 = task
+        break
+
+assert first_urgent_task0 == first_urgent_task1
+
+
+# %%
