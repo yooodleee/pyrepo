@@ -413,3 +413,24 @@ for task in chain(tasks, completed_tasks):
 
 
 # %%
+# bad case
+for task in tasks:
+    if task.urgency > 3:
+        print(task)
+
+# # output: 
+# Task(title='Homework', description='Physics and math', urgency=5)
+# Task(title='Museum', description='Egypt exhibit', urgency=4)
+
+
+# %%
+# better case -> filter()
+for task in filter(lambda x: x.urgency > 3, tasks): # function: lambda, x: per task, tasks: iterable 
+    print(task)
+
+# # output: 
+# Task(title='Homework', description='Physics and math', urgency=5)
+# Task(title='Museum', description='Egypt exhibit', urgency=4)
+
+
+# %%
