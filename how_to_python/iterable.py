@@ -252,3 +252,39 @@ assert flattened_items0 == flattened_items1
 
 
 # %%
+from collections import namedtuple
+
+Task = namedtuple("Task", "title description urgency")
+tasks = [
+    Task("Homework", "Physics and math", 5),
+    Task("Laundry", "Wash clothes", 3),
+    Task("Museum", "Egypt exhibit", 4)
+]
+
+# Task 1: task1_title task1_description task1_urgency
+# Task 2: task2_title task2_description task2_urgency
+# Task 3: task3_title task3_description task3_urgency
+
+for task_i in range(len(tasks)):
+    task = tasks[task_i]
+    task_counter = task_i + 1
+    print(f"Task {task_counter}: {task.title:<10} {task.description:<18} {task.urgency}")
+
+# # output: 
+# Task 1: Homework   Physics and math   5
+# Task 2: Laundry    Wash clothes       3
+# Task 3: Museum     Egypt exhibit      4
+
+
+# %%
+# tuple unpacking -> task_i, task 
+for task_i, task in enumerate(tasks, start=1):  # generate enumerate type iterator
+    print(f"Task: {task_i}: {task.title:<10} {task.description:<18} {task.urgency}")
+
+# # output: 
+# Task: 1: Homework   Physics and math   5
+# Task: 2: Laundry    Wash clothes       3
+# Task: 3: Museum     Egypt exhibit      4
+
+
+# %%
