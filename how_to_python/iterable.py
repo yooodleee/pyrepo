@@ -288,3 +288,26 @@ for task_i, task in enumerate(tasks, start=1):  # generate enumerate type iterat
 
 
 # %%
+# bad case
+for task_i in range(len(tasks)):
+    task = tasks[-(task_i + 1)]     # - index 
+    print(f"Task: {task}")
+
+# # output: 
+# Task: Task(title='Museum', description='Egypt exhibit', urgency=4)
+# Task: Task(title='Laundry', description='Wash clothes', urgency=3)
+# Task: Task(title='Homework', description='Physics and math', urgency=5)
+
+
+# %%
+# better case
+for task in reversed(tasks):    # reversed()
+    print(f"Task: {task}")
+
+# # output: 
+# Task: Task(title='Museum', description='Egypt exhibit', urgency=4)
+# Task: Task(title='Laundry', description='Wash clothes', urgency=3)
+# Task: Task(title='Homework', description='Physics and math', urgency=5)
+
+
+# %%
