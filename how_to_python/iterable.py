@@ -434,3 +434,54 @@ for task in filter(lambda x: x.urgency > 3, tasks): # function: lambda, x: per t
 
 
 # %%
+n = 1
+while n < 3:
+    print(f"n's value: {n}")
+    n += 1
+
+print(f"n's value after while loop: {n}")
+# output: 
+# n's value: 1
+# n's value: 2
+# n's value after while loop: 3
+
+
+# %%
+from collections import namedtuple
+
+# namedtuple class -> Task
+Task = namedtuple("Task", "title, description, urgency")
+
+tasks = [
+    Task("Toaster", "Clean the toaster", 2),
+    Task("Camera", "Export photos", 4),
+    Task("Homework", "Physics and math", 5),
+    Task("Floor", "Mop the floor", 3),
+    Task("Internet", "Upgrade plan", 5),
+    Task("Laundry", "Wash clothes", 3),
+    Task("Museum", "Egypt exhibit", 4),
+    Task("Utility", "Pay bills", 5)
+]
+
+first_urgent_task0 = None
+for counter, task in enumerate(tasks, 1):
+    print(f"---Checking task {counter}: {task.title}")
+
+    # task's urgency = 5 and not allocate any value in first_urgent_task0
+    if (task.urgency == 5) and (first_urgent_task0 is None):
+        first_urgent_task0 = task
+
+print(f"***first urgent task: {first_urgent_task0}")
+# # output: 
+# ---Checking task 1: Toaster
+# ---Checking task 2: Camera
+# ---Checking task 3: Homework
+# ---Checking task 4: Floor
+# ---Checking task 5: Internet
+# ---Checking task 6: Laundry
+# ---Checking task 7: Museum
+# ---Checking task 8: Utility
+# ***first urgent task: Task(title='Homework', description='Physics and math', urgency=5)
+
+
+# %%
