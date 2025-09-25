@@ -311,3 +311,35 @@ for task in reversed(tasks):    # reversed()
 
 
 # %%
+dates = ["May 5", 'May 9, 2022', "May 11, 2022"]
+
+locations = ["School", "Home", "Downtown"]
+
+
+
+# %%
+# bad case
+for task_i in range(len(tasks)):
+    task = tasks[task_i]
+    date = dates[task_i]
+    location = locations[task_i]
+    print(f"{task.title}: by {date} at {location}")
+
+# # output: 
+# Homework: by May 5 at School
+# Laundry: by May 9, 2022 at Home
+# Museum: by May 11, 2022 at Downtown
+
+
+# %%
+# better case -> use zip()
+for task, date, location in zip(tasks, dates, locations):
+    print(f"{task.title}: by {date} at {location}")
+
+# # output: 
+# Homework: by May 5 at School
+# Laundry: by May 9, 2022 at Home
+# Museum: by May 11, 2022 at Downtown
+
+
+# %%
