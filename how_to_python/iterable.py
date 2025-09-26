@@ -623,3 +623,53 @@ locate_task(4)
 
 
 # %%
+
+# while the_condition:
+#     # ...
+# else:
+#     # ...
+
+def complete_tasks_with_break(resting_threshold):
+    completed_urgency_levels = 0
+
+    while tasks: # tasks != 0
+        if completed_urgency_levels > resting_threshold:
+            print("Coffee break now!")
+            break
+
+        next_task = tasks.pop()
+        print(f"Completed: {next_task}")
+        completed_urgency_levels += next_task.urgency
+    
+    else:
+        print("Party! Completed all the tasks.")
+
+
+tasks = [
+    Task("Toaster", "Clean the toaster", 2),
+    Task("Camera", "Export plan", 4),
+    Task("Homework", "Physics and math", 5),
+    Task("Floor", "Mop the floor", 3),
+    Task("Internet", "Upgrade plan", 5)
+]
+
+
+complete_tasks_with_break(7)
+# # output: 
+# Completed: Task(title='Internet', description='Upgrade plan', urgency=5)
+# Completed: Task(title='Floor', description='Mop the floor', urgency=3)
+# Coffee break now!
+
+complete_tasks_with_break(6)
+# # output: 
+# Completed: Task(title='Homework', description='Physics and math', urgency=5)
+# Completed: Task(title='Camera', description='Export plan', urgency=4)
+# Coffee break now!
+
+complete_tasks_with_break(5)
+# # output: 
+# Completed: Task(title='Toaster', description='Clean the toaster', urgency=2)
+# Party! Completed all the tasks.
+
+
+# %%
