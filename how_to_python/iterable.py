@@ -526,3 +526,44 @@ assert first_urgent_task0 == first_urgent_task1
 
 
 # %%
+for number in range(5):
+    if number < 3:
+        continue    # True -> Next Iteration -> number = 0, 1, 2(True)
+    print(f"Number: {number}")  # number = 3, continue (x) -> print 
+
+# output: 
+# Number: 3
+# Number: 4
+
+
+# %%
+# bad case(non continue) -> tab 2
+for task in tasks:
+    if task.urgency > 4:
+        result0 = task.do_something0()
+        result1 = task.do_something1()
+
+        if (result0 >= 0) and (result1 == "Hello"):
+            task.do_something2()
+            task.do_something3()
+            task.do_something4()
+
+
+# %%
+# better case(continue) -> tab 1
+for tsk in tasks:
+    if task.urgency > 4:
+        continue    # task.urgency = 4
+
+    result0 = task.do_something0()
+    result1 = task.do_something1()
+
+    if (result0 < 0) or (result1 != "Hello"):   # result0 = 0, result1 = "Hello"
+        continue
+
+    task.do_something2()
+    task.do_something3()
+    task.do_something4()
+
+
+# %%
