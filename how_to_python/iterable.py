@@ -567,3 +567,59 @@ for tsk in tasks:
 
 
 # %%
+
+# break -> stop the iteration -> skip the else statement
+# for item in iterable:
+#     # ...
+# else:
+#     # ...
+
+def show_for_else_rule(breaking_number):
+    for number in range(2):
+        print(f"Iteration: {number}")
+
+        if number == breaking_number:
+            print(f"Break: {number}; Skip the else statement")
+            break
+    
+    else:
+        print("Running the else statement")
+    print("Outside the for...else...")
+
+
+show_for_else_rule(1)
+# # output: 
+# Iteration: 0
+# Iteration: 1
+# Break: 1; Skip the else statement
+# Outside the for...else...
+
+
+show_for_else_rule(3)
+# # output: 
+# Iteration: 0
+# Iteration: 1
+# Running the else statement
+# Outside the for...else...
+
+
+# %%
+def locate_task(urgency_level):
+    for task in tasks:
+        if task.urgency == urgency_level:
+            working_task = task
+            break
+    
+    else:
+        working_task = None
+    print(f"Working Task: {working_task}")
+
+
+locate_task(1)
+# output: Working Task: None
+
+locate_task(4)
+# output: Working Task: Task(title='Camera', description='Export photos', urgency=4)
+
+
+# %%
