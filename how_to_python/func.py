@@ -125,3 +125,64 @@ complete_task.__defaults__
 
 
 # %%
+numbers = list(range(5))
+
+sum_numbers = sum(numbers)
+
+print(f"Sum of {numbers} is {sum_numbers}")
+# output: Sum of [0, 1, 2, 3, 4] is 10
+
+
+# %%
+primes = [5, 7, 2, 3, 11]
+
+sort_return_value = primes.sort()
+
+print(f"Return value of sort: {sort_return_value}")
+# output: Return value of sort: None
+
+
+# %%
+primes.sort().append(13)
+# output: AttributeError: 'NoneType' object has no attribute 'append'
+
+
+# %%
+# Case 1: no return value
+def append_task(task, grouped_tasks):
+    grouped_tasks.append(task)
+    
+    # no return 
+
+appended_no_return = append_task("Homework", [])
+
+print(f"Appended: {appended_no_return}")
+# output: Appended: None
+
+
+# %%
+def append_task(task, grouped_tasks=[]):    # mutable argument to empty list
+    grouped_tasks.append(task)
+
+    # no return 
+
+appended_no_return = append_task("Homework")
+
+print(f"Appended: {appended_no_return}")
+# output: Appended: None
+
+
+# %%
+# Case 2
+def append_task(task, grouped_tasks):
+    grouped_tasks.append(task)
+    
+    return
+
+appended_no_return = append_task("Homework", [])
+
+print(f"Appended: {appended_no_return}")
+# output: Appended: None
+
+
+# %%
