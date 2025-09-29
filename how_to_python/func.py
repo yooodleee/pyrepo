@@ -234,3 +234,44 @@ def calculate_mean(measures):
 
 
 # %%
+measures = [5.6, 7.0, 5.7, 5.8, 4.3, 5.2]
+
+measures_stats = generate_stats(measures)
+
+print(type(measures_stats), measures_stats)
+# output: <class 'tuple'> (5.6, 0.8786353054595518)
+
+
+# %%
+# unpacking formatted tuple object 
+m_mean, m_std = generate_stats(measures)
+
+print(f"Mean: {m_mean}; SD: {m_std}")
+# output: Mean: 5.6; SD: 0.8786353054595518
+
+
+# %%
+# wrong case:
+m_mean = generate_stats(measures)
+
+print(f"Mean: {m_mean}")
+# output: Mean: (5.6, 0.8786353054595518)
+
+
+# %%
+# correct case
+m_mean, _ = generate_stats(measures)    # no m_std
+
+print(f"Mean: {m_mean}")
+# output: Mean: 5.6
+
+
+# %%
+# correct case
+_, m_std = generate_stats(measures)     # no m_mean
+
+print(f"SD: {m_std}")
+# output: SD: 0.8786353054595518
+
+
+# %%
