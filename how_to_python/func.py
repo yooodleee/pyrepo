@@ -186,3 +186,51 @@ print(f"Appended: {appended_no_return}")
 
 
 # %%
+# one return value(general case)
+def say_hello(person):
+    hello = f"Hello, {person}"
+    return hello
+
+greeting = say_hello("Rocky")   # allocate return value in greeting(variable)
+
+
+# %%
+# multiple return value 
+from statistics import mean, stdev
+
+def generate_stats(measures):
+    measure_mean = mean(measures)
+    measure_std = stdev(measures)
+    return measure_mean, measure_std
+
+# %%
+# bad case(not pythonic)
+def calculate_mean(measures):
+    measure_mean = mean(measures)
+    return measure_mean
+
+def calculate_std(measures):
+    measure_std = stdev(measures)
+    return measure_std
+
+
+# %%
+# bad case: specify purpose of function 
+def process_ddata(measures):
+    formatted_measures = [f"{x} mg/L" for x in measures]
+    measure_mean = mean(measures)
+    return formatted_measures, measure_mean     # no association between formatted_measures and measure_mean.
+
+
+# %%
+# better case: separated function 
+def format_measures(measures):
+    formatted_measures = [f"{x} mg/L" for x in measures]
+    return formatted_measures
+
+def calculate_mean(measures):
+    measure_mean = mean(measures)
+    return measure_mean
+
+
+# %%
