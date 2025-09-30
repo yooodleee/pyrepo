@@ -617,3 +617,45 @@ def quotient(dividend, divisor, taking_int=False):
 
 
 # %%
+def quotient(dividend, divisor, taking_int=False):
+    """
+    Calculate the product of two numbers with a base factor.
+    
+    :param dividend: int | float, the dividend in the division
+    :param divisor: int | float, the divisor in the division
+    :param taking_int: bool, whether only taking the integer part of
+        the quotient; default: False, which calculates the
+        precise quotient of the two numbers
+    
+    :return: float | int, the quotient of the dividend and divisor
+    
+    :raises: ZeroDivisionError, when the divisor is 0
+    """
+    if divisor == 0:
+        raise ZeroDivisionError("division by zero")
+    
+    result = dividend / divisor
+    if taking_int:
+        result = int(result)
+    return result
+
+
+help(quotient)
+# # output: 
+# Help on function quotient in module __main__:
+
+# quotient(dividend, divisor, taking_int=False)
+#     Calculate the product of two numbers with a base factor.
+    
+#     :param dividend: int | float, the dividend in the division
+#     :param divisor: int | float, the divisor in the division
+#     :param taking_int: bool, whether only taking the integer part of
+#         the quotient; default: False, which calculates the
+#         precise quotient of the two numbers
+    
+#     :return: float | int, the quotient of the dividend and divisor
+    
+#     :raises: ZeroDivisionError, when the divisor is 0
+
+
+# %%
