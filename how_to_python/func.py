@@ -391,3 +391,46 @@ def generate_stats(measures: Sequence[float]) -> tuple[float, float]:
 
 
 # %%
+# print(*objects, sep=' ', end='\n', file=sys.stdout, flush=False)
+
+word = "Hello"          # object(str)
+numbers = [1, 2, 3]     # object(list)
+prime_number = 11       # object(int)
+
+print(word, numbers, prime_number)  # *objects-> mutable.
+# output: Hello [1, 2, 3] 11
+
+
+# %%
+def multiply_numbers(a, b):
+    return a * b
+
+
+# %%
+# Case 1: positional argument
+multiply_numbers(1, 2)  # a = 1, b = 2
+# output: 2
+
+multiply_numbers(2, 1)  # a = 2, a = 1
+# output: 2
+
+
+# %%
+# Case 2: keyword argument
+multiply_numbers(a=3, b=4)  # a = 3, b = 4
+# output: 12 
+
+multiply_numbers(b=4, a=3)  # a = 3, b = 4
+# output: 12
+
+
+# %%
+# Case 3: positional argument + keyword argument
+multiply_numbers(5, b=6)    # positional argument(5), keyword argument(b=6)
+# output: 
+
+multiply_numbers(b=6, 5)    # SyntaxError
+# output: SyntaxError: positional argument follows keyword argument
+
+
+# %%
