@@ -597,3 +597,23 @@ print(example.__doc__)
 
 
 # %%
+# reST style docstring
+def quotient(dividend, divisor, taking_int=False):
+    """
+    Calculate the product of two numbers with a base factor.
+    
+    :param dividend: int | float, the divident in the division
+    :param divisor: int | float, the divisor in the division
+    :param taking_int: bool, whether only taking the integer part of
+        the quotient; default: False, which calculates the 
+        precise quotient of the two numbers
+    
+    :return: float | int, the quotient of the dividend and divisor
+    """
+    result = dividend / divisor
+    if taking_int:
+        result = int(result)
+    return result
+
+
+# %%
