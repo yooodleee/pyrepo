@@ -275,3 +275,100 @@ print(f"SD: {m_std}")
 
 
 # %%
+number = 1
+
+print(type(number))
+# output: <class 'int'>
+
+
+# %%
+number = "one"      # dynamically typed language(Python)
+
+print(type(number))
+# output: <class 'str'>
+
+
+# %%
+number: int = 3             # type hint(int)
+
+name: str = "John"          # type hint(str)
+
+primes: list = [1, 2, 3]    # type hint(list)
+
+
+# %%
+numbers: tuple = (1, 2, 3)  # dynamically typed language
+
+numbers = [1, 2, 3]
+
+
+# %%
+from statistics import mean, stdev
+
+def generate_stats(measures: list) -> tuple:
+    measure_mean = mean(measures)
+    measure_std = stdev(measures)
+    return measure_mean, measure_std
+
+
+help(generate_stats)
+# output: 
+# Help on function generate_stats in module __main__:
+
+# generate_stats(measures: list) -> tuple
+
+
+# %%
+def calculate_sum(a: int, b: int) -> int:
+    c = a + b
+    return c 
+
+
+calculate_sum()
+# TypeError: calculate_sum() missing 2 required positional arguments: 'a' and 'b'
+
+calculate_sum("1", 2)
+# output: TypeError: can only concatenate str (not "int") to str
+
+
+# %%
+# Case 1: default value 
+def calculate_product(a: int, b: int, multiplier: int = 1) -> int:
+    c = a * b * multiplier
+    return c 
+
+
+# %%
+# Case 2: namedtuple(user defined class)
+from collections import namedtuple
+
+Task = namedtuple("Task", "title description urgency")
+
+class User: 
+    pass
+
+def assign_task(pending_task: Task, user: User):  # Task, User(type)
+    pass
+
+
+# %%
+# bad case
+def complete_tasks(tasks: list):
+    for task in tasks:
+        pass
+
+complete_tasks(["Laundry", "Museum"])
+
+complete_tasks([Task("Laundry", "Wash clothes", 5), Task("Egyptian exhibit", 4)])
+
+
+# %%
+# better case
+def complete_tasks(tasks: list[Task]):  # detail info about tasks
+    for task in tasks:
+        pass
+
+complete_tasks(["Laundry", "Museum"])
+
+
+# %%
