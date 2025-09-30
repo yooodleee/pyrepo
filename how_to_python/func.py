@@ -372,3 +372,22 @@ complete_tasks(["Laundry", "Museum"])
 
 
 # %%
+from statistics import mean, stdev
+
+def generate_stats(measures: list[float] | tuple[float, ...]) -> tuple[float, float]:
+    measure_mean = mean(measures)
+    measure_std = stdev(measures)
+    return measure_mean, measure_std
+
+
+# %%
+from statistics import mean, stdev
+from typing import Sequence
+
+def generate_stats(measures: Sequence[float]) -> tuple[float, float]:
+    measure_mean = mean(measures)
+    measure_std = stdev(measures)
+    return measure_mean, measure_std
+
+
+# %%
