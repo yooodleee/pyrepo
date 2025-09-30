@@ -498,3 +498,102 @@ def example(arg0, arg1, *args, kwarg0, kwarg1, **kwargs):
 
 
 # %%
+# docstring
+help(isinstance)
+# # output: 
+# Help on built-in function isinstance in module builtins:
+
+# isinstance(obj, class_or_tuple, /)
+#     Return whether an object is an instance of a class or of a subclass thereof.
+    
+#     A tuple, as in ``isinstance(x, (A, B, ...))``, may be given as the target to
+#     check against. This is equivalent to ``isinstance(x, A) or isinstance(x, B)
+#     or ...`` etc.
+
+
+# %%
+print(isinstance.__doc__)
+# # output: 
+# Return whether an object is an instance of a class or of a subclass thereof.
+
+# A tuple, as in ``isinstance(x, (A, B, ...))``, may be given as the target to
+# check against. This is equivalent to ``isinstance(x, A) or isinstance(x, B)
+# or ...`` etc.
+
+
+# %%
+help(example)   # user defined function 
+# # output: 
+# Help on function example in module __main__:
+
+# example(arg0, arg1, *args, kwarg0, kwarg1, **kwargs)
+#     arg0, arg1, *args: positional argument
+#     kwarg0, kwarg1, **kwargs: keyword argument
+
+
+# %%
+# google style docstring
+def example(param0, param1):
+    """
+    This is an example function docstring.
+    
+    Args:
+        param0:
+        param1:
+    
+    Returns:
+        Describe the return value
+    
+    Raises:
+        Describe any Exception
+    """
+    # the body of the function
+
+
+help(example)
+# # output: 
+# Help on function example in module __main__:
+
+# example(param0, param1)
+#     This is an example function docstring.
+    
+#     Args:
+#         param0:
+#         param1:
+    
+#     Returns:
+#         Describe the return value
+    
+#     Raises:
+#         Describe any Exception
+
+
+# %%
+# reST(reStructuredText): PyCharm
+def example(param0, param1):
+    """
+    This is an example function docstring.
+    
+    :param param0:
+    :param param1:
+    
+    :return:
+    
+    :raises:
+    """
+    # the body of the function
+
+
+print(example.__doc__)
+# # output: 
+# This is an example function docstring.
+    
+#     :param param0:
+#     :param param1:
+    
+#     :return:
+    
+#     :raises:
+
+
+# %%
