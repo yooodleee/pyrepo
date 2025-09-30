@@ -468,3 +468,33 @@ stringify_b(0, 1)   # can't appropriate parse items and item0
 
 
 # %%
+def create_report(name, **grades):      # keyword argument(**grades)
+    print(f"got {grades} in {type(grades)}")    # packing single dictionary object
+
+    report_items = [f"***** Report Begin for {name} *****"]
+    for subject, grade in grades.items():
+        report_items.append(f"### {subject}: {grade}")
+    
+    report_items.append(f"***** Report End for {name} ******")
+    print("\n".join(report_items))
+
+
+create_report("John", math=100, phys=98, bio=95)    # name: "John", grades: math, phys, bio
+# # output: 
+# got {'math': 100, 'phys': 98, 'bio': 95} in <class 'dict'>
+# ***** Report Begin for John *****
+# ### math: 100
+# ### phys: 98
+# ### bio: 95
+# ***** Report End for John ******
+
+
+# %%
+def example(arg0, arg1, *args, kwarg0, kwarg1, **kwargs):
+    """arg0, arg1, *args: positional argument
+    kwarg0, kwarg1, **kwargs: keyword argument"""
+    
+    pass
+
+
+# %%
