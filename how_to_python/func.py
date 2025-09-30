@@ -434,3 +434,37 @@ multiply_numbers(b=6, 5)    # SyntaxError
 
 
 # %%
+def stringify(*items):  # *items(positionarl argument)
+    print(f"got {items} in {type(items)}")
+    return [str(item) for item in items]
+
+
+stringify(1, "two", None)
+# output:
+# got (1, 'two', None) in <class 'tuple'>
+# ['1', 'two', 'None']
+
+
+# %%
+# good case
+def stringify_a(item0, *items):
+    print(item0, items)
+
+
+stringify_a(0)      # appropriate parsing -> first argument(item0), remain argument(items)
+# output: 0 ()
+
+stringify_a(0, 1)   # first argument(0, item0) second argument(1, items)
+# output: 0 (1,)
+
+
+# %%
+# wrong case
+def stringify_b(*items, item0): # correct definition(item0, *items) 
+    print(item0, items)
+
+stringify_b(0, 1)   # can't appropriate parse items and item0
+# output: TypeError: stringify_b() missing 1 required keyword-only argument: 'item0'
+
+
+# %%
