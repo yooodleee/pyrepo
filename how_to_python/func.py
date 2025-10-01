@@ -738,3 +738,29 @@ tasks.sort(key=using_urgency_level1, reverse=True)
 
 
 # %%
+integers = [-4, 3, 7, 0, -6]
+
+sorted(integers, key=lambda x: abs(x))
+# output: [0, 3, -4, -6, 7]
+
+
+# %%
+# better case: Pythonic
+sorted(integers, key=abs)
+# output: [0, 3, -4, -6, 7]
+
+
+# %%
+scores = [(93, 96, 94), (92, 95, 96), (94, 97, 91), (95, 97, 99)]
+
+max(scores, key=lambda x: x[0] + x[1] + x[2])
+# output: (95, 97, 99)
+
+
+# %%
+# better case: sum()
+max(scores, key=sum)
+# output: (95, 97, 99)
+
+
+# %%
