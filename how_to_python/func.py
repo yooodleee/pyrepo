@@ -764,3 +764,41 @@ max(scores, key=sum)
 
 
 # %%
+# bad case: if...elif...else...
+def get_mean(data):
+    return "mean of data"
+
+def get_min(data):
+    return "min of the data"
+
+def get_max(data):
+    return "max of the data"
+
+def process_data(data, action):
+    if action == "mean":
+        processed = get_mean(data)
+    elif action == "min":
+        processed = get_min(data)
+    elif action == "max":
+        processed = get_max(data)
+    else:
+        processed = "error in action"
+    
+    return processed
+
+
+# %%
+# better case(use dictionary object)
+actions = {"mean": get_mean, "min": get_min, "max": get_max}    # data: "mean", "min", "max"
+
+
+def fallback_action(data):  # processed = "error in action"
+    return "error in action"
+
+def process_data(data, action):
+    calculation = actions.get(action, fallback_action)
+    processed = calculation(data)
+    return processed
+
+
+# %%
