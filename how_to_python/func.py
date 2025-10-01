@@ -659,3 +659,56 @@ help(quotient)
 
 
 # %%
+# wrong case:
+lambda x: return x * 2  
+# output: SyntaxError: invalid syntax
+
+
+# %%
+# correct case: lambda args: expression
+doubler = lambda x: x * 2   # bad case -> allocate a lambda function to a variable.
+
+
+# %%
+print(type(doubler))
+# output: <class 'function'>
+
+
+# %%
+doubler(5)
+# output: 10 
+
+doubler(8)
+# output: 16
+
+
+# %%
+tasks = [
+    {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3},
+    {'title': 'Homework', 'desc': 'Physics + Math', 'urgency': 5},
+    {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}
+]
+
+def using_urgency_level(task):  # noise code(user defined function)
+    return task['urgency']
+
+# bad case:
+tasks.sort(key=using_urgency_level, reverse=True)
+tasks
+# # output: 
+# [{'title': 'Homework', 'desc': 'Physics + Math', 'urgency': 5},
+#  {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3},
+#  {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}]
+
+
+# %%
+# better case: lambda function
+tasks.sort(key=lambda x: x['urgency'], reverse=True)
+tasks
+# # output: 
+# [{'title': 'Homework', 'desc': 'Physics + Math', 'urgency': 5},
+#  {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3},
+#  {'title': 'Museum', 'desc': 'Egyptian things', 'urgency': 2}]
+
+
+# %%
