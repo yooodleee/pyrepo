@@ -802,3 +802,41 @@ def process_data(data, action):
 
 
 # %%
+numbers_str = ["1.23", "4.56", "7.89"]
+numbers = list(map(float, numbers_str))     # map(func, *iterables) -> map object.
+
+assert numbers == [1.23, 4.56, 7.89]
+
+
+# %%
+# better case: use list comprehension
+numbers = [float(x) for x in numbers_str]
+
+
+# %%
+# higher order function
+def outside(x):
+    def inside(y):
+        pass
+
+    pass
+
+
+# %%
+def increment_maker(number):
+    def increment(num0):
+        return num0 + number
+    
+    return increment
+
+
+increment_one = increment_maker(1)
+increment_three = increment_maker(3)
+increment_five = increment_maker(5)
+increment_ten = increment_maker(10)
+
+increment_one(99), increment_three(88), increment_five(80), increment_ten(100)
+# output: (100, 91, 85, 110)
+
+
+# %%
