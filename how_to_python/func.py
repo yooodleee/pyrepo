@@ -712,3 +712,29 @@ tasks
 
 
 # %%
+# bad case: allocate a lambda function to a variable 
+# difficult to debug
+using_urgency_level0 = lambda x: x['urgency0']
+
+tasks.sort(key=using_urgency_level0, reverse=True)
+# # output: 
+# Traceback (most recent call last):
+#     File "<stdin>", line 1, in <module>
+#     File "<stdin>", line 1, in <lambda>
+# KeyError: 'urgency0'
+
+
+# %%
+# better case: named function -> more detail error message
+def using_urgency_level1(task):
+    return task['urgency1']
+
+tasks.sort(key=using_urgency_level1, reverse=True)
+# # output: 
+# TTraceback (most recent call last)
+#     File "<stdin>", line 1, in <module>
+#     FIle "<stdin>", line 2, in using_urgency_level1
+# KeyError: 'urgency1'
+
+
+# %%
