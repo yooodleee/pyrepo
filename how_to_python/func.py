@@ -840,3 +840,97 @@ increment_one(99), increment_three(88), increment_five(80), increment_ten(100)
 
 
 # %%
+# better case? 
+import random 
+import time 
+
+def example_func0():
+    print("--- example_func0 starts")
+    start_t = time.time()
+
+    random_delay = random.randint(1, 5) * 0.1   # random delay(0.1 ~ 0.5 sec)
+    time.sleep(random_delay)
+
+    end_t = time.time()
+    print(f"*** example_func0 ends; used time: {end_t - start_t} s")
+
+def example_func1():
+    print("--- example_func1 starts")
+    start_t = time.time()
+
+    random_delay = random.randint(6, 10) * 0.1  # random delay(0.6 ~ 1 sec)
+    time.sleep(random_delay)
+
+    end_t = time.time()
+    print(f"*** example_func1 ends; used time: {end_t - start_t} s")
+
+
+example_func0()
+# # output: 
+# --- example_func0 starts
+# *** example_func0 ends; used time: 0.5084130764007568 s
+
+example_func1()
+# # output: 
+# --- example_func1 starts
+# *** example_func1 ends; used time: 0.7088108062744141 s
+
+
+# %%
+import random 
+import time
+
+def logging_time(func): 
+    def logger(*args, **kwargs):
+        print(f"--- {func.__name__} starts")
+        start_t = time.time()
+        value_returned = func(*args, **kwargs)
+        end_t = time.time()
+        print(f"*** {func.__name__} ends; used time: {end_t - start_t:.2f} s")
+        return value_returned
+    
+    return logger
+
+@logging_time
+def example_func2():
+    random_delay = random.randint(3, 5) * 0.1
+    time.sleep(random_delay)
+
+
+example_func2()
+# # output: 
+# --- example_func2 starts
+# *** example_func2 ends; used time: 0.40 s
+
+
+# %%
+@logging_time
+def example_func3():
+    pass
+
+@logging_time
+def example_func4():
+    pass
+
+@logging_time
+def example_func5():
+    pass
+
+
+example_func3()
+# # output: 
+# --- example_func3 starts
+# *** example_func3 ends; used time: 0.00 s
+
+example_func4()
+# # output: 
+# --- example_func4 starts
+# *** example_func4 ends; used time: 0.00 s
+
+example_func5()
+# # output: 
+# --- example_func5 starts
+# *** example_func5 ends; used time: 0.00 s
+
+
+# %%
