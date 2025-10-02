@@ -934,3 +934,51 @@ example_func5()
 
 
 # %%
+# dacorator -> closure(higher order function)
+def outer(a):
+    b = 5
+
+    def inner():    
+        return a + b
+    
+    return inner
+
+closure = outer(100)
+closure 
+# output: 
+# <function __main__.outer.<locals>.inner()>
+
+closure()
+# output: 105
+
+closure.__closure__[0].cell_contents
+# output: 100
+
+closure.__closure__[1].cell_contents
+# output: 5
+
+
+# %%
+# logging_time's backbone -> dacoration
+def logging_time_backbone(func):
+    def logger(*args, **kwargs):
+        pass
+
+    return logger   
+
+
+# %%
+def before_deco():
+    pass
+
+# call dacoration function(logging_time)
+# generate after_deco() -> pass to a before_deco()
+after_deco = logging_time(before_deco)
+
+after_deco()    # same output
+# # output: 
+# --- before_deco starts:
+# *** before_deco ends; used time: 0.0s
+
+
+# %%
