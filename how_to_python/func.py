@@ -1153,3 +1153,40 @@ squares_gen.__sizeof__()    # vs. squares_list.__sizeof__()
 
 
 # %%
+squares_gen_exp = (x * x for x in range(1, upper_limit))
+
+squares_gen_exp
+# # output: 
+# <generator object <genexpr> at 0x0000020A2BBB7430>
+
+
+# %%
+next(squares_gen_exp)
+# output: 1
+
+next(squares_gen_exp)
+# output: 9
+
+next(squares_gen_exp)
+# output: 36
+
+
+# %%
+sum_gen_exp = sum(squares_gen_exp)
+
+sum_gen_exp
+# output: 333332833333499909
+
+
+# %%
+# better case: 
+sum(x * x for x in range(4))
+# output: 14
+
+
+# %%
+sum(x * x for x in range(1, upper_limit))
+# output: 333332833333500000
+
+
+# %%
