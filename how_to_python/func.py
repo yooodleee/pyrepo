@@ -1115,5 +1115,41 @@ print(example_wraps.__doc__, example_wraps.__name__, sep="; ")
 # # output:
 # Example function; example_wraps
 
- 
+
+# %%
+upper_limit = 1_000_000
+
+squares_list = [x*x for x in range(1, upper_limit + 1)]
+
+sum_list = sum(squares_list)
+
+
+# %%
+print(squares_list.__sizeof__())
+# output: 8448712
+
+
+# %%
+def perfect_squares(limit):
+    n = 1
+    while n <= limit:   # next(squares_gen) n = 1, yield 1^2 
+        yield n * n     # yield vs. return ?
+        n += 1
+
+sqaures_gen = perfect_squares(upper_limit)  # new generator 
+
+sum_gen = sum(sqaures_gen)  # use generator 
+print(sum_gen)
+# output: 333333833333500000
+
+assert sum_gen == sum_list == 333333833333500000
+
+
+# %%
+squares_gen = perfect_squares(upper_limit)
+
+squares_gen.__sizeof__()    # vs. squares_list.__sizeof__()
+# output: 96
+
+
 # %%
