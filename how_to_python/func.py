@@ -982,3 +982,32 @@ after_deco()    # same output
 
 
 # %%
+def monitor(func):
+    def monitored():    # 0 positional arguments 
+        print(f"*** {func.__name__} is called")
+        func()
+    
+    return monitored
+
+# normal case: no variables
+@monitor
+def example0():
+    pass
+
+example0()
+# # output: 
+# ***example0 is called
+
+
+# %%
+# wrong case: variables("a string" -> param0)
+@monitor
+def example1(param0):
+    pass
+
+example1("a string")
+# # output: 
+# TypeError: monitored() takes 0 positional arguments but 1 was given
+
+
+# %%
