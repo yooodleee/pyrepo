@@ -1011,3 +1011,35 @@ example1("a string")
 
 
 # %%
+# bad case 1: omitted return
+def decorator(func):
+    def decorated(*args, **kwargs):
+        # action 1
+        func()          # omitted return 
+        # action 2
+
+    return decorated
+
+
+# bad case 2: wrong return 
+def decorator(func):
+    def decorated(*args, **kwargs):
+        # action 1
+        return func()
+        # action 2      -> can't run 
+    
+    return decorated
+
+
+# good case: normal return 
+def decorator(func):
+    def decorated(*args, **kwargs):
+        # action 1
+        temp_return = func()
+        # action 2
+        return temp_return
+    
+    return decorated
+
+
+# %%
