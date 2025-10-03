@@ -1043,3 +1043,77 @@ def decorator(func):
 
 
 # %%
+# wrong case:
+def say_hi(person):     # non-dacorator -> can access docstring
+    """Greet someone"""
+    print(f"Hi, {person}")
+
+
+@logging_time
+def say_hello(person):  # dacorator(logging_time)
+    """Greet someone"""
+    print(f"Hello, {person}")
+
+
+print(say_hi.__doc__, say_hi.__name__, sep="; ")
+# output: Greet someone; say_hi
+
+print(say_hello.__doc__, say_hello.__name__, sep="; ")  # say_hello.__doc__ == logger.__doc__
+# output: None; logger
+
+
+# %%
+# bad case: 
+def logging_time_doc(func):
+    def logger(*args, **kwargs):
+        """Log the time"""
+        print(f"--{func.__name__} starts")
+        start_t = time.time()
+        value_returned = func(*args, **kwargs)
+        end_t = time.time()
+
+        print(f"*** {func.__name__} ends; used time: {end_t - start_t:.2f} s")
+        return value_returned
+
+    return logger
+
+
+@logging_time_doc
+def example_doc():
+    """Example function"""
+    pass
+
+print(example_doc.__doc__)
+# # output: 
+# Log the time
+
+
+# %%
+# good case: use wraps dacorator
+import functools
+
+def logging_time_wraps(func):
+    @functools.wraps(func)
+    def logger(*args, **kwargs):
+        """Log the time"""
+        print(f"--{func.__name__} starts")
+        start_t = time.time()
+        value_returned = func(*args, **kwargs)
+        end_t = time.time()
+        print(f"*** {func.__name__} ends; used time: {end_t - start_t:.2f} s")
+        return value_returned
+    
+    return logger
+
+
+@logging_time_wraps
+def example_wraps():
+    """Example function"""
+    pass
+
+print(example_wraps.__doc__, example_wraps.__name__, sep="; ")
+# # output:
+# Example function; example_wraps
+
+ 
+# %%
