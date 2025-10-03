@@ -1190,3 +1190,52 @@ sum(x * x for x in range(1, upper_limit))
 
 
 # %%
+# bad case: common variables pattern 
+def run_stats_models(dataset, model, output_path):
+    calculated_stats = 123  # nominal value
+    return calculated_stats
+
+
+# Case A
+run_stats_models(dataset_a1, "model_a", "project_a/stats/")
+run_stats_models(dataset_a2, "model_a", "project_a/stats/")
+run_stats_models(dataset_a3, "model_a", "project_a/stats/")
+run_stats_models(dataset_a4, "model_a", "project_a/stats/")
+
+# Case B
+run_stats_models(dataset_b1, "model_b", "project_a/stats/")
+run_stats_models(dataset_b2, "model_b", "project_b/stats/")
+run_stats_models(dataset_b3, "model_b", "project_b/stats/")
+run_stats_models(dataset_b4, "model_b", "project_b/stats/")
+
+# Case C
+run_stats_models(dataset_c1, "model_c", "project_c/stats/")
+run_stats_models(dataset_c2, "model_c", "project_c/stats/")
+run_stats_models(dataset_c3, "model_c", "project_c/stats/")
+run_stats_models(dataset_c4, "model_c", "project_c/stats/")
+
+
+# %%
+# better case:
+def run_stats_model_a(dataset):
+    model_stats = run_stats_models(dataset, "model_a", "project_a/stats/")
+    return model_stats
+
+
+# Case A
+run_stats_model_a(dataset_a1)
+run_stats_model_a(dataset_a2)
+run_stats_model_a(dataset_a3)
+run_stats_model_a(dataset_a4)
+
+
+# %%
+from functools import partial
+
+run_stats_model_a = partial(run_stats_models, model="model_a", output_path="project_a/stats/")
+
+run_stats_model_a("dataset_a")
+# output: 123
+
+
+# %%
