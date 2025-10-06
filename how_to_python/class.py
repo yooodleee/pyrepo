@@ -189,3 +189,42 @@ class Task:
 
 
 # %%
+# generate new instance method
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+        self._status = "created"
+    
+    def complete(self):
+        print(f"Memory Address (self): {id(self)}")
+        self.status = "completed"
+
+task = Task("Laundry", "Wash clothes", 3)
+task.complete()
+# output: Memory Address (self): 2419063077376
+
+
+task_id = f"Memory Address (task): {id(task)}"
+task_id
+# output: Memory Address (task): 2419063077376
+
+
+# %%
+# staticmethod -> generate utility method
+from datetime import datetime
+
+class Task:
+    @staticmethod
+    def get_timestamp():
+        now = datetime.now()
+        timestamp = now.strftime("%b %d %Y, %H:%M")
+        return timestamp
+
+refresh_time = f"Date Refreshed: {Task.get_timestamp()}"    # user_defined_class.staticmethod(arg0, arg1, arg2)
+refresh_time
+# output: 'Date Refreshed: Oct 06 2025, 20:27'
+
+
+# %%
