@@ -87,3 +87,105 @@ task = Task()
 
 
 # %%
+from collections import namedtuple
+
+Task = namedtuple("Task", "title desc urgency")
+
+task = Task("Laundry", "Wash clothes", 3)
+task
+# # output: 
+# Task(title='Laundry', desc='Wash clothes', urgency=3)
+
+
+# %%
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title 
+        self.desc = desc
+        self.urgency = urgency
+
+
+# %%
+task = Task("Laundry", "Wash clothes", 3)   # generat new instance Task object
+
+
+# %%
+task.__dict__
+# # output: 
+# {'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3}
+
+
+# %%
+# bad case: 
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+    
+    def complete(self):
+        self.status = "completed"
+    
+    def add_tag(self, tag):
+        if not self.tags:
+            self.tags = []
+        self.tags.append(tag)
+
+task = Task("Laundry", "Wash clothes", 3)
+task.status
+# # output: 
+# AttributeError: 'Task' object has no attribute 'status'
+
+
+# %%
+task.complete()
+print(task.status)
+# output: completed
+
+
+# %%
+# better case:
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+        self.status = "created"
+        self.tags = []
+    
+    def complete(self):
+        self.status = "completed"
+    
+    def add_tag(self, tag):
+        self.tags.append(tag)
+
+task = Task("Laundry", "Wash clothes", 3)
+task.__dict__
+# # output: 
+# {'title': 'Laundry',
+#  'desc': 'Wash clothes',
+#  'urgency': 3,
+#  'status': 'created',
+#  'tags': []}
+
+
+# %%
+# bad case: instance attribute
+class Task:
+    def __init__(self, title, desc, urgency, user):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+        self.user = user        # instance attribute -> more memory cost
+
+
+# %%
+# better case: class atribute
+class Task:
+    user = "the logged in user"     # class attribute
+
+    def __init__(self, title, desc, urgency, user):
+        pass
+
+
+# %%
