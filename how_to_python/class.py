@@ -308,3 +308,42 @@ task._Task__format_note("a note")   # _classname__private_method
 
 
 # %%
+# before: 
+task.status
+# output: created
+
+task.status = "completed"
+task.status
+# output: completed
+
+
+# %%
+# after: property dacorator
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+        self._status = "created"    # protected member variable
+    
+    @property
+    def status(self):
+        return self._status
+    
+    def complete(self):
+        self._status = "completed"
+
+
+# %%
+task = Task("Laundry", "Wash clothes", 3)
+task.status     # can access to a status(instance method) <- property dacorator
+# output: 'created'
+
+
+# %%
+# can't set attribute 'status'
+task.status = "completed"
+# output: AttributeError: can't set attribute 'status'
+
+
+# %%
