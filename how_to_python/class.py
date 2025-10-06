@@ -228,3 +228,36 @@ refresh_time
 
 
 # %%
+# bad case: configure Task's instance object
+task_dict = {"title": "Laundry", "desc": "Wash clothes", "urgency": 3}
+
+task = Task(task_dict["title"], task_dict["desc"], task_dict["urgency"])
+
+
+# %%
+# better case: classmethod
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+        self._status = "created"
+    
+    @classmethod
+    def task_from_dict(cls, task_dict):
+        title = task_dict["title"]
+        desc = task_dict["desc"]
+        urgency = task_dict["urgency"]
+        task_obj = cls(title, desc, urgency)    # use Task class generator
+        return task_obj
+
+task = Task.task_from_dict(task_dict)
+task.__dict__
+# # output: 
+# {'title': 'Laundry',
+#  'desc': 'Wash clothes',
+#  'urgency': 3,
+#  '_status': 'created'}
+
+
+# %%
