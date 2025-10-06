@@ -261,3 +261,50 @@ task.__dict__
 
 
 # %%
+# bad case: unencapsulation
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+        self._status = "created"
+        self.note = ""
+    
+    def complete(self, note = ""):
+        self.status = "complted"
+        self.note = self.format_note(note)
+    
+    def format_note(self, note):   # _: protected, __: private
+        formatted_note = note.title()
+        return formatted_note
+    
+    def _format_note(self, note): # protected method
+        formatted_note = note.title()
+        return formatted_note
+
+    def __format_note(self, note): # private method
+        formatted_note = note.title()
+        return formatted_note
+
+
+# %%
+# first case: _format_note(): protected method 
+task = Task("Laundry", "Wash clothes", 3)
+task._format_note("abc")
+# output: 'Abc'
+
+
+# %%
+# second case: __format_note(): private method -> can't access out of Task class
+task = Task("Laundry", "Wash clothes", 3)
+task.__format_note("abc")
+# output: Attribute: 'Task' object has no attribute '__format_note'
+
+
+# %%
+# name mangling
+task._Task__format_note("a note")   # _classname__private_method
+# output: 'A Note'
+
+
+# %%
