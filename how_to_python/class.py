@@ -347,3 +347,32 @@ task.status = "completed"
 
 
 # %%
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+        self._status = "created"
+    
+    @property
+    def status(self):
+        return self._status
+    
+    @status.setter      # property setter(instance method)
+    def status(self, value):
+        allowed_values = ["created", "started", "completed", "suspended"]
+        if value in allowed_values:
+            self._status = value
+            print(f"task status set to {value}")
+        else:
+            print(f"invalid status: {value}")
+
+task = Task("Laundry", "Wash clothes", 3)
+task.status = "completed"
+# output: task status set to completed
+
+task.status = "random"
+# output: invalid status: random
+
+
+# %%
