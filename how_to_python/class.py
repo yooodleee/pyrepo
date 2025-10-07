@@ -444,3 +444,42 @@ repr(task)
 
 
 # %%
+task = Task("Laundry", "Wash clothes", 3)
+
+task_repr = repr(task)
+
+task_repr_eval = eval(task_repr)
+
+print(type(task_repr_eval))
+# output: <class '__main__.Task'>
+
+print(task_repr_eval)
+# output: Laundry: Wash clothes, urgency level 3
+
+
+# %%
+# bad case: no conversion flag(!r)
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+    
+    def __str__(self):
+        return f"{self.title}: {self.desc}, urgency level {self.urgency}"   
+    
+    def __repr__(self):
+        return f"Task({self.title}, {self.desc}, {self.urgency})"   # no conversion flag(!r)
+
+task = Task("Laundry", "Wash clothes", 3)
+
+print(repr(task))
+# output: Task(Laundry, Wash clothes, 3)
+
+
+# %%
+eval(repr(task))
+# output: SyntaxError: invalid syntax. Perhaps you forgot a comma?
+
+
+# %%
