@@ -376,3 +376,40 @@ task.status = "random"
 
 
 # %%
+print(task)
+# # output: 
+# <__main__.Task object at 0x000001D8C8E84760>
+
+
+# %%
+# __str__()
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title 
+        self.desc = desc
+        self.urgency = urgency
+    
+    def __str__(self):  # instance method, return str
+        return f"{self.title}: {self.desc}, urgency level {self.urgency}"
+
+task = Task("Laundry", "Wash clothes", 3)
+print(task)
+# output: Laundry: Wash clothes, urgency level 3
+
+task
+# output: <__main__.Task at 0x1d8c8e84190>
+
+
+# %%
+# bad case:
+planned_task = f"Next Task - {task}"
+
+print(planned_task)
+# output: Next Task - Laundry: Wash clothes, urgency level 3
+
+# better case: str(instance)
+str(task)
+# output: 'Laundry: Wash clothes, urgency level 3'
+
+
+# %%
