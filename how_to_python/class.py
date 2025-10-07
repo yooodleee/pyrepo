@@ -413,3 +413,34 @@ str(task)
 
 
 # %%
+planned_task    # val(str)
+# output: 'Next Task - Laundry: Wash clothes, urgency level 3'
+
+task            # task instance
+# output: <__main__.Task at 0x1d8c8eaf070>
+
+
+# %%
+# __repr__()
+class Task:
+    def __init__(self, title, desc, urgency):
+        self.title = title
+        self.desc = desc
+        self.urgency = urgency
+    
+    def __str__(self):
+        return f"{self.title}: {self.desc}, urgency level {self.urgency}"
+    
+    def __repr__(self):
+        return f"Task({self.title!r}, {self.desc!r}, {self.urgency})"     # !r -> __repr__()
+
+task = Task("Laundry", "Wash clothes", 3)
+task
+# output: Task('Laundry', 'Wash clothes', 3)
+
+# call __repr__() method -> repr(instance): task instance
+repr(task)
+# output: "Task('Laundry', 'Wash clothes', 3)"
+
+
+# %%
