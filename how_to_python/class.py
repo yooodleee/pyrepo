@@ -528,3 +528,18 @@ Supervisor.mro()
 
 
 # %%
+# super()
+class Supervisor(Employee):
+    def logout(self):
+        super().logout()    # generate parent class's proxy instance(ref Employee class)
+        print("Additional logout actions for a supervisor")
+
+supervisor = Supervisor("John", "1001")
+
+supervisor.logout() # 1) Employee logout() # 2) Supervisor logout()
+# # output: 
+# An employee John just logged out.
+# Additional logout actions for a supervisor
+
+
+# %%
