@@ -483,3 +483,48 @@ eval(repr(task))
 
 
 # %%
+class Employee:
+    def __init__(self, name, employee_id):
+        self.name = name
+        self.employee_id = employee_id
+    
+    def login(self):
+        print(f"An employee {self.name} just logged in.")
+    
+    def logout(self):
+        print(f"An employee {self.name} just logged out.")
+
+class Supervisor(Employee):
+    pass    
+
+# generate Supervisor instance object.
+supervisor = Supervisor("John", "1001")
+
+print(supervisor.name)
+# output: John
+
+supervisor.login()
+# output: An employee John just logged in.
+
+supervisor.logout()
+# output: An employee John just logged out.
+
+
+# %%
+# overriding: Method Resolution Order(MRO)
+class Supervisor(Employee):
+    def login(self):
+        print(f"A supervisor {self.name} just logged in.")
+
+supervisor = Supervisor("John", "1001")
+
+supervisor.login()
+# output: A supervisor John just logged in.
+
+
+# %%
+Supervisor.mro()
+# output: [__main__.Supervisor, __main__.Employee, object]
+
+
+# %%
