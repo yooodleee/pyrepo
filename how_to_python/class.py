@@ -543,3 +543,27 @@ supervisor.logout() # 1) Employee logout() # 2) Supervisor logout()
 
 
 # %%
+class Employee:
+    def __init__(self, name, employee_id):
+        self.name = name
+        self.employee_id = employee_id
+    
+    def _request_vacation(self):    # protected method
+        print("Send a vacation request to the employee's supervisor.")
+    
+    def __transfer_group(self):     # private method
+        print("Transfer the employee to a different group.")
+
+class Supervisor(Employee):
+    def do_something(self):
+        self._request_vacation()    # access to a protected method
+        self.__transfer_group()     # access to a private method
+
+supervisor = Supervisor("John", "1001")
+supervisor.do_something()
+# # output: 
+# Send a vacation request to the employee's supervisor.
+# AttributeError: 'Supervisor' object has no attribute '_Supervisor__transfer_group'
+
+
+# %%
