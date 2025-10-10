@@ -659,3 +659,38 @@ for direction in Direction:
 
 
 # %%
+# bad case:
+def move_to(direction: Direction, distance: float):
+    if direction in Direction:
+        message = f"Go to the {direction} for {distance} miles"
+    else:
+        message = "Wrong input for direction"
+    print(message)
+
+move_to(Direction.NORTH, 3)
+# output: Go to the Direction.NORTH for 3 miles
+
+
+# %%
+# better case: add new user defined method
+class Direction(Enum):
+    NORTH = 0
+    SOUTH = 1
+    EAST = 2
+    WEST = 3
+
+    def __str__(self):
+        return self.name.lower()
+    
+def move_to(direction: Direction, distance: float):
+    if direction in Direction:
+        message = f"Go to the {direction} for {distance} miles"
+    else:
+        message = "Wrong input for direction"
+    print(message)
+
+move_to(Direction.NORTH, 3)
+# output: Go to the north for 3 miles
+
+
+# %%
