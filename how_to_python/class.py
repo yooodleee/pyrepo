@@ -694,3 +694,111 @@ move_to(Direction.NORTH, 3)
 
 
 # %%
+# generate dataclass
+from dataclasses import dataclass
+
+@dataclass
+class Bill:
+    table_number: int
+    meal_amount: float
+    served_by: str
+    tip_amount: float
+
+bill0 = Bill(5, 60.5, "John", 10)
+
+bill_output = f"Today's bill: {bill0}"
+
+print(bill_output)
+# output: Today's bill: Bill(table_number=5, meal_amount=60.5, served_by='John', tip_amount=10)
+
+
+# %%
+print(Bill.__annotations__)
+# output: {'table_number': <class 'int'>, 'meal_amount': <class 'float'>, 'served_by': <class 'str'>, 'tip_amount': <class 'float'>}
+
+
+# %%
+# set filed's default value
+@dataclass
+class Bill:
+    table_number: int
+    meal_amount: float
+    served_by: str
+    tip_amount: float = 0
+
+bill1 = Bill(5, 60.5, "John")
+print(bill1)
+# output: Bill(table_number=5, meal_amount=60.5, served_by='John', tip_amount=0)
+
+
+# %%
+# wrong case:
+@dataclass
+class TestClass:
+    attribute_with_default: int = 0
+    attr1: str
+    attr2: float
+
+# output: TypeError: non-default argument 'attr1' follows default argument
+
+
+# %%
+# correct case:
+@dataclass
+class TestClass:
+    attr1: str
+    attr2: float
+    attribute_with_default: int = 0
+
+
+# %%
+@dataclass(frozen=True)
+class ImmutableBill:
+    meal_amount: float
+    served_by: str
+
+immutable_bill = ImmutableBill(50, "John")
+immutable_bill.served_by = "David"
+# output: FrozenInstanceError: cannot assign to field 'served_by'
+
+
+# %%
+@dataclass
+class BaseBill:
+    meal_amount: float
+
+@dataclass
+class TippedBill(BaseBill):
+    tip_amount: float
+
+tipped_bill = TippedBill(60, 10)
+
+print(tipped_bill)
+# output: TippedBill(meal_amount=60, tip_amount=10)
+
+
+# %%
+# wrong case:
+@dataclass
+class BaseBill:
+    meal_amount: float = 50
+
+@dataclass
+class TippedBill(BaseBill):
+    tip_amount: float
+
+# output: TypeError: non-default argument 'tip_amount' follows default argument
+
+
+# %%
+# correct case:
+@dataclass
+class BaseBill:
+    meal_amount: float = 50
+
+@dataclass
+class TippedBill(BaseBill):
+    tip_amount: float = 0
+
+
+# %%
