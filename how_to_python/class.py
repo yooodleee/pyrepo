@@ -567,3 +567,95 @@ supervisor.do_something()
 
 
 # %%
+# wrong case:
+def move_to(direction: str, distance: float):
+    if direction in {"north", "south", "east", "west"}:
+        message = f"Go to the {direction} for {distance} miles"
+    else:
+        message = "Wrong input for direction"
+    print(message)
+
+move_to("North", 2)
+# output: Wrong input for direction
+
+
+# %%
+class Direction: 
+    NORTH = 0
+    SOUTH = 1
+    EAST = 2
+    WEST = 3
+
+print(Direction.NORTH)
+# output: 0
+
+print(Direction.SOUTH)
+# output: 1
+
+
+# %%
+def move_to(direction: Direction, distance: float):
+    pass
+
+move_to(Direction.NORTH, 2)
+# outut: Expected type 'Direction', got 'int' instead
+
+
+# %%
+from enum import Enum
+
+class Direction(Enum):  # subclassing
+    NORTH = 0
+    SOUTH = 1
+    EAST = 2
+    WEST = 3
+
+class DirectionOneLiner(Enum):
+    NORTH = 0; SOUTH = 1; EAST = 2; WEST = 3
+
+
+# %%
+north = Direction.NORTH
+
+print("north type:", type(north))
+# output: north type: <enum 'Direction'>
+
+print("north check instance of Direction:", isinstance(north, Direction))
+# output: north check instance of Direction: True
+
+
+# %%
+print("north name:", north.name)
+# output: north name: NORTH
+
+print("north value:", north.value)
+# output: north value: 0
+
+
+# %%
+direction_value = 2
+
+direction = Direction(direction_value)
+
+print("Direction to go:", direction)
+# output: Direction to go: Direction.EAST
+
+
+# %%
+unknown_direction = Direction(8)
+# output: ValueError: 8 is not a valid Direction
+
+
+# %%
+all_directions = list(Direction)
+
+print(all_directions)
+# output: [<Direction.NORTH: 0>, <Direction.SOUTH: 1>, <Direction.EAST: 2>, <Direction.WEST: 3>]
+
+
+# %%
+for direction in Direction:
+    pass
+
+
+# %%
