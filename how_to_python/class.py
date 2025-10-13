@@ -868,3 +868,59 @@ json.loads('null') is None  # JSON null -> None
 # output: True
 
 # %%
+# serialization: Python data -> JSON data
+builtin_data = ['text', False, {"0": None, 1: [1.0, 2.0]}]
+
+builtin_json = repr(json.dumps(builtin_data))   # Serialize obj to a JSON formatted str.
+builtin_json
+# output: '\'["text", false, {"0": null, "1": [1.0, 2.0]}]\''
+
+
+# %%
+# Wrong case: serialize user defined class(Task) instance
+json.dumps(tasks[0])
+# output: TypeError: Object of type Task is not JSON serializable
+
+
+# %%
+# Correct case: 
+# default(obj) is a function that should return a serializable version of obj or raise TypeError.
+dumped_task = json.dumps(tasks[0], default=lambda x: x.__dict__)
+
+print(dumped_task)
+# output: {"title": "Laundry", "desc": "Wash clothes", "urgency": 3}
+
+
+# %%
+# dumps indent arg
+task_dict = {"title": "Laundry", "desc": "Wash clothes", "urgency": 3}
+
+print(json.dumps(task_dict, indent=2))  # pretty-printed with that indent level.
+# # output: 
+# {
+#   "title": "Laundry",
+#   "desc": "Wash clothes",
+#   "urgency": 3
+# }
+
+
+# %%
+# dumps sort_keys arg
+user_info = {
+    "name": "John", "age": 35, "city": "San Francisco",
+    "home": "123 Main St.", "zip_code": 12345, "sex": "Male"
+}
+
+print(json.dumps(user_info, indent=2, sort_keys=True))
+# # output: 
+# {
+#   "age": 35,
+#   "city": "San Francisco",
+#   "home": "123 Main St.",
+#   "name": "John",
+#   "sex": "Male",
+#   "zip_code": 12345
+# }
+
+
+# %%
