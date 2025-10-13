@@ -924,3 +924,112 @@ print(json.dumps(user_info, indent=2, sort_keys=True))
 
 
 # %%
+class User:
+    def __init__(self, username):
+        self.username = username
+        self.profile_data = self._get_profile_data()
+        print(f"### User {username} created")
+    
+    def _get_profile_data(self):
+        # get profile data from server to memory
+        print("*** Run the expensive operation")
+        fetched_data = " Expensive data, including thumbnail, followers, etc."
+        return fetched_data
+
+def get_followers(username):
+    # get followers list from server
+    usernames_fetched = ["John", "Azron", "Zack"]
+    followers = [User(username) for username in usernames_fetched]
+    return followers
+
+followers = get_followers("Ashley")
+# # output: 
+# *** Run the expensive operation
+# ### User John created
+# *** Run the expensive operation
+# ### User Azron created
+# *** Run the expensive operation
+# ### User Zack created
+
+
+# %%
+class User:
+    def __init__(self, username):
+        self.username = username
+        print(f"### User {username} created")
+    
+    def __getattr__(self, item):
+        print(f" __getattr called for {item}")
+        if item == "profile_data":
+            profile_data = self._get_profile_data()
+            setattr(self, item, profile_data)
+            return profile_data
+    
+    def _get_profile_data(self):
+        # get profile data from server to memory
+        print("*** Run the expensive operation")
+        fetched_data = "Extensive data, including thumbnail, followers, etc."
+        return fetched_data
+
+followers = get_followers("Ashley") # operation 1
+# output: 
+
+### User John created
+### User Azron created
+### User Zack created
+
+follower0 = followers[0]
+follower0.profile_data              # operation 2 
+# output: 
+
+#  __getattr called for profile_data
+# *** Run the expensive operation
+
+follower0.profile_data              # operation 3
+# output: 
+
+# 'Extensive data, including thumbnail, followers, etc.'
+
+
+# %%
+class User:
+    def __init__(self, username):
+        self.username = username
+        self._profile_data = None
+        print(f"### User {username} created")
+    
+    @property
+    def profile_data(self):
+        if self._profile_data is None:
+            print("_profile_data is None")
+            self._profile_data = self._get_profile_data()
+        else:
+            print("_profile_data is set")
+        return self._profile_data
+    
+    def _get_profile_data(self):
+        # get profile data from server to memory
+        print("*** Run the expensive operation")
+        fetched_data = "Extensivee data, including thumbnail, followers, etc."
+        return fetched_data
+
+followers = get_followers("Ashley")
+# output: 
+### User John created
+### User Azron created
+### User Zack created
+
+follower0 = followers[0]
+follower0.profile_data
+# # output: 
+# _profile_data is None
+# *** Run the expensive operation
+# 'Extensivee data, including thumbnail, followers, etc.'
+
+follower0.profile_data
+# # output: 
+# _profile_data is set
+# 'Extensivee data, including thumbnail, followers, etc
+
+
+# %%
