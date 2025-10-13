@@ -802,3 +802,69 @@ class TippedBill(BaseBill):
 
 
 # %%
+tasks_json = """
+[
+    {
+        "title": "Laundry",
+        "desc": "Wash clothes",
+        "urgency": 3
+    },
+    {
+        "title": "Homework",
+        "desc": "Physics + Math",
+        "urgency": 5
+    }
+]
+"""
+
+
+# %%
+import json
+
+tasks_read = json.loads(tasks_json)
+
+print(tasks_read)
+# # output: 
+# [{'title': 'Laundry', 'desc': 'Wash clothes', 'urgency': 3}, {'title': 'Homework', 'desc': 'Physics + Math', 'urgency': 5}]
+
+
+# %%
+# use classmethod
+from dataclasses import dataclass
+
+@dataclass
+class Task:
+    title: str
+    desc: str
+    urgency: int
+
+    @classmethod
+    def task_from_dict(cls, task_dict): # cls: Task class
+        return cls(**task_dict)         # access to a dictionary object and return to a keyword argument
+
+tasks = [Task.task_from_dict(x) for x in tasks_read]
+
+print(tasks)
+# # output: 
+# [Task(title='Laundry', desc='Wash clothes', urgency=3), Task(title='Homework', desc='Physics + Math', urgency=5)]
+
+
+# %%
+# loads method -> a JSON document to a Python object
+
+json.loads("2.2")
+# output: 2.2
+
+json.loads("A string")
+# output: JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+
+json.loads('"A string"')
+# output: 'A string'
+
+json.loads('false') # bool
+# output: False
+
+json.loads('null') is None  # JSON null -> None
+# output: True
+
+# %%
