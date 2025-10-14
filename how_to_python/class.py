@@ -1033,3 +1033,134 @@ follower0.profile_data
 
 
 # %%
+# bad case:
+class Student:
+    def __init__(self, first_name, last_name, student_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.student_id = student_id
+        self.account_number = self.get_account_number()
+        self.balance = self.get_balance()
+        age, gender, race = self.get_demographics()
+        self.age = age
+        self.gender = gender
+        self.race = race
+
+    def get_account_number(self):
+        # get account number by student_id
+        account_number = 123456
+        return account_number
+    
+    def get_balance(self):
+        balance = 100.00
+        return balance
+    
+    def get_demographics(self):
+        birthday = "08/14/2010"
+        age = self.calculated_age(birthday)
+        gender = "Female"
+        race = "Black"
+        return age, gender, race
+    
+    @staticmethod
+    def calculated_age(birthday):
+        age = 12
+        return age
+
+
+# %%
+# modified case:
+class Account:
+    def __init__(self, student_id):
+        self.account_number = 123456
+        self.balance = 100
+
+class Demographics:
+    def __init__(self, student_id):
+        self.age = 12
+        self.gender = "Female"
+        self.race = "Black"
+
+class Student:
+    def __init__(self, first_name, last_name, student_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.student_id = student_id
+        self.account = Account(self.student_id)
+        self.demographics = Demographics(self.student_id)
+
+student = Student("John", "Smith", "987654")
+print(student.account.__dict__)
+# output: {'account_number': 123456, 'balance': 100}
+
+
+print(student.demographics.__dict__)
+# output: {'age': 12, 'gender': 'Female', 'race': 'Black'}
+
+
+# %%
+# modified case:
+class Account:
+    def __init__(self, student_id):
+        self.student_id = student_id
+        self.account_number = self.get_account_number_from_db()
+        self.balance = self.get_balance_from_db()
+    
+    def get_account_number_from_db(self):
+        account_number = 123456
+        return account_number
+
+    def get_balance_from_db(self):
+        balance = 100.00
+        return balance
+
+class Demographics:
+    def __init__(self, student_id):
+        self.student_id = student_id
+        age, gender, race = self.get_demographics_from_db()
+        self.age = age
+        self.gender = gender
+        self.race = race
+    
+    def get_demographics_from_db(self):
+        birthday = "08/14/2010"
+        age = self.calculated_age(birthday)
+        gender = "Female"
+        race = "Black"
+        return age, gender, race
+    
+    @staticmethod
+    def calculated_age(birthday):
+        age = 12
+        return age
+
+balance_output = f"Balance: {student.account.balance}"
+balance_output
+# output: 'Blance: 100'
+
+demo = student.demographics
+
+demo_output = f"Age: {demo.age}; Gender: {demo.gender}; Race: {demo.race}"
+demo_output
+# output: 'Age: 12; Gender: Female; Race: Black'
+
+
+# %%
+# bad case: tight coupling
+class Student:
+    def __init__(self, first_name, last_name, student_id):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.student_id = student_id
+        self.account = Account(self.student_id)
+        self.demographics = Demographics(self.student_id)
+    
+    def get_account_balance(self):
+        return self.account.balance # Student <-> Account(tight coupling)
+    
+    def get_demographics(self):
+        demo = self.demographics    # Student <-> Demographics(tight coupling)
+        return demo.age, demo.gender, demo.race
+
+    
+# %%
