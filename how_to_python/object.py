@@ -85,3 +85,26 @@ def filter_tasks(tasks, by_urgency):
 
 
 # %%
+class Task:
+    def __new__(cls, *args):
+        new_task = object.__new__(cls)
+        print(f"__new__ is called, creating an instance at {id(new_task)}")
+        return new_task
+    
+    def __init__(self, title):
+        self.title = title
+        print(f"__init__ is called, initializing an instance at {id(self)}")
+
+
+# %%
+task = Task("Laundry")
+
+# # output: 
+# __new__ is called, creating an instance at 1297088208464
+# __init__ is called, initializing an instance at 1297088208464
+
+print(f"task memory address: {id(task)}")
+# output: task memory address: 1297088208464
+
+
+# %%
