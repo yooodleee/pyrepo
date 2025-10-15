@@ -151,3 +151,29 @@ assert sys.getrefcount(task) == 2
 
 
 # %%
+class Task:
+    def __init__(self, title):
+        print(f"__init__ is called, initializing an instance at {id(self)}")
+        self.title = title
+    
+    def __del__(self):
+        print(f"__del__ is called, destructing an instance at {id(self)}")
+
+task = Task("Homework")
+# output: __init__ is called, initializing an instance at 1297106915680
+
+assert "task" in globals()
+
+# %%
+del task
+# output: __del__ is called, destructing an instance at 1297106915680
+
+assert "task" not in globals()
+
+
+# %%
+title_output = f"Title: {task.title}"
+# output: NameError: name 'task' is not defined
+
+
+# %%
