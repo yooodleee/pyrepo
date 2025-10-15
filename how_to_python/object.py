@@ -108,3 +108,18 @@ print(f"task memory address: {id(task)}")
 
 
 # %%
+title_output = f"Title: {task.title}"
+
+
+# %%
+print(globals())    # Return the dictionary containing the current scope's global variables
+# output: 
+
+
+# %%
+assert Task is globals()["Task"]    # Task: class object
+
+assert task is globals()["task"]    # task: instance object
+
+
+# %%
