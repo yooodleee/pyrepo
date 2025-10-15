@@ -123,3 +123,31 @@ assert task is globals()["task"]    # task: instance object
 
 
 # %%
+import sys
+
+task = Task("Laundry")
+
+assert sys.getrefcount(task) == 2
+
+
+# %%
+work = {"to_do": task}
+assert sys.getrefcount(task) == 3
+
+tasks = [task]
+assert sys.getrefcount(task) == 4
+
+
+# %%
+del tasks
+
+assert sys.getrefcount(task) == 3
+
+
+# %%
+work["to_do"] = "nothing"
+
+assert sys.getrefcount(task) == 2
+
+
+# %%
