@@ -247,3 +247,22 @@ assert id(task.tags) == id(task_copied.tags)
 
 
 # %%
+# deep copy
+from copy import deepcopy
+
+task = Task("Homework", "Math and physics", ["school", "urgent"])
+task_deepcopied = deepcopy(task)
+task_deepcopied
+# output: Task('Homework', 'Math and physics', ['school', 'urgent'])
+
+
+# %%
+task_deepcopied.tags.append("red")
+task_deepcopied
+# output: Task('Homework', 'Math and physics', ['school', 'urgent', 'red'])
+
+task
+# output: Task('Homework', 'Math and physics', ['school', 'urgent'])
+
+
+# %%
