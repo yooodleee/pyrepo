@@ -177,3 +177,73 @@ title_output = f"Title: {task.title}"
 
 
 # %%
+# bad case: 
+class Task:
+    def __init__(self, title, desc):
+        self.title = title
+        self.desc = desc
+    
+    def __repr__(self):
+        return f"Task({self.title!r}, {self.desc!r})"
+    
+    def save_data(self):
+        pass
+
+task = Task("Homework", "Math and physics")
+task_dict = task.__dict__
+task_dict_copied = task_dict.copy() # shallow copy of task_dict
+
+print(task_dict_copied)
+# output: {'title': 'Homework', 'desc': 'Math and physics'}
+
+
+# %%
+# better case: copy
+from copy import copy
+
+task_copied = copy(task)
+
+print(task_copied)
+# output: Task('Homework', 'Math and physics')
+
+
+# %%
+# shallow copy
+class Task:
+    def __init__(self, title, desc, tags = None):
+        self.title = title 
+        self.desc = desc
+        self.tags = [] if tags is None else tags    # ternary expression
+    
+    def __repr__(self):
+        return f"Task({self.title!r}, {self.desc!r}, {self.tags})"
+    
+    def save_data(self):
+        pass
+
+task = Task("Homework", "Math and physics", ["school", "urgent"])
+task_copied = copy(task)
+print(task_copied)
+# output: Task('Homework', 'Math and physics', ['school', 'urgent'])
+
+
+# %%
+task_copied.tags.append("red")
+task_copied
+# output: Task('Homework', 'Math and physics', ['school', 'urgent', 'red'])
+
+
+# %%
+print(task) 
+# expected result: Task('Homework', 'Math and physics', ['school', 'urgent'])
+# output: Task('Homework', 'Math and physics', ['school', 'urgent', 'red'])
+
+
+# %%
+# identity test
+assert task.tags is task_copied.tags
+
+assert id(task.tags) == id(task_copied.tags)
+
+
+# %%
