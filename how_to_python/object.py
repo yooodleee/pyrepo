@@ -266,3 +266,58 @@ task
 
 
 # %%
+db_filename = "N/A"         # global scope
+
+def set_database(db_name):
+    db_filename = db_name   # local scope: db_filename
+    print(list(locals()))
+
+print(list(globals()))      # print local scope's instance
+# output: 
+# ['__name__', '__doc__', '__package__', '__loader__', '__spec__', '__builtin__', '__builtins__', '_ih', '_oh', '_dh', 'In', 'Out', 'get_ipython', 'exit', 'quit', 'open', '_', '__', '___', '_VSCODE_types', 'os', '_VSCODE_hashlib', '__VSCODE_wrapped_run_cell', '__VSCODE_compute_hash', '__VSCODE_wrap_run_cell', '__vsc_ipynb_file__', '__file__', '_i', '_ii', '_iii', '_i1', 'db_filename', 'set_database']
+
+
+# %%
+set_database("tasks.sqlite")
+# output: ['db_name', 'db_filename']
+
+
+# %%
+# modified case: global keyword
+db_filename = "N/A"     # global scope
+
+def set_database(db_name):
+    global db_filename  # not local scope's variable
+    db_filename = db_name
+    print(list(locals()))   # LEGB(global scope: db_name)
+
+set_database("tasks.sqlite")
+# output: ['db_name']
+
+print(db_filename)
+# output: tasks.sqlite
+
+
+# %%
+# change nonlocal variable
+def change_text(using_nonlocal: bool):
+    text = "N/A"
+
+    def inner_fun0():
+        text = "No nonlocal"        # local scope
+    
+    def inner_fun1():
+        nonlocal text               # nonlocal 
+        text = "Using nonlocal"     # enclosing scope variable
+    
+    inner_fun1() if using_nonlocal else inner_fun0()
+    return text
+
+change_text(using_nonlocal=False)   # inner_fun0()
+# output: 'N/A'
+
+change_text(using_nonlocal=True)    # inner_fun1()
+# output: 'Using nonlocal'
+
+
+# %%
