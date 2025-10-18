@@ -413,3 +413,45 @@ print(calculate_sum)    # class's instance(TimeLogger)
 
 
 # %%
+text_file = open("tasks.txt")
+
+print(text_file)
+# output: <_io.TextIOWrapper name='tasks.txt' mode='r' encoding='cp949'>
+
+
+# %%
+text_data = text_file.read()
+
+print(type(text_data))
+# output: <class 'str'>
+
+print(text_data)
+# # output: 
+# 1001,Homework,5
+# 1002,Laundry,3
+# 1003,Grocery,4
+
+
+# %%
+text_file.close()       # should
+
+assert text_file.closed
+
+
+# %%
+# more pythonic: context management(with)
+with open("tasks.txt") as file:     # close x
+    print(f"file object: {file}")
+    data = file.read()
+    print(data)
+
+# # output: 
+# file object: <_io.TextIOWrapper name='tasks.txt' mode='r' encoding='cp949'>
+# 1001,Homework,5
+# 1002,Laundry,3
+# 1003,Grocery,4
+
+assert file.closed
+
+
+# %%
