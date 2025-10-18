@@ -321,3 +321,95 @@ change_text(using_nonlocal=True)    # inner_fun1()
 
 
 # %%
+# class vs. function
+def doubler(x):
+    return x * 2
+
+assert callable(doubler)    # check callability
+
+
+# %%
+def do_smoething():
+    pass
+
+print(do_smoething)
+# output:<function do_smoething at 0x0000017DE24473A0>
+
+print(sum)  # built-in function
+# output: <built-in function sum>
+
+print(map)
+# output: <class 'map'>
+
+
+# %%
+print(map(int, ["1", "2.0", "3"]))
+# output: <map object at 0x0000017DE145AA90>
+
+
+# %%
+# bad case: 
+cards = [10, 1, "J", "A"]
+
+print(sorted(cards))
+# output: '<' not supported between instances of 'str' and 'int'
+
+print(sorted(cards, key=str))
+# output: [1, 10, 'A', 'J']
+
+
+# %%
+# better case: user defined class
+class PokerOrder(int):
+    def __new__(cls, x):    # modified PokerOrder's default operation
+        numbers_mapping = {'J': 11, 'Q': 12, 'K': 13, 'A': 14}
+        casted_number = numbers_mapping.get(x, x)
+        return super().__new__(PokerOrder, casted_number)   # generate proxy instance
+
+print(sorted(cards, key=PokerOrder))
+# output: [1, 10, 'J', 'A']
+
+
+# %%
+import time
+
+def logging_time(func):
+    def logger(*args, **kwargs):
+        start = time.time()
+        result = func(*args, **kwargs)
+        print(f"Calling {func.__name__}: {time.time() - start:.5f}")
+        return result
+
+    return logger
+
+
+# %%
+# modified case: 
+import time
+
+class TimeLogger:
+    def __init__(self, func):
+        def logger(*args, **kwargs):
+            start = time.time()
+            result = func(*args, **kwargs)
+            print(f"Calling {func.__name__}: {time.time() - start:.5f}")
+            return result
+        self._logger = logger       # protected attribute: save logger(inner func)
+    
+    def __call__(self, *args, **kwargs):    # call dacorated func -> callable class's instance
+        return self._logger(*args, **kwargs)
+
+@TimeLogger
+def calculate_sum(n):
+    return sum(range(n))
+
+result = calculate_sum(100_000)
+# output: Calling calculate_sum: 0.00181
+
+
+# %%
+print(calculate_sum)    # class's instance(TimeLogger)
+# output: <__main__.TimeLogger object at 0x00000238C9620400>
+
+
+# %%
