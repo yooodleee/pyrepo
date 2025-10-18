@@ -455,3 +455,55 @@ assert file.closed
 
 
 # %%
+# case: generator
+from collections import namedtuple
+
+Task = namedtuple("Task", "task_id title urgency")
+
+with open("tasks.txt") as file:
+    for line in file:
+        stripped_line = line.strip()
+        task_id, title, urgency = stripped_line.split(",")
+        task = Task(task_id, title, urgency)
+        print(f"{stripped_line}: {task}")
+
+# # output: 
+# 1001,Homework,5: Task(task_id='1001', title='Homework', urgency='5')
+# 1002,Laundry,3: Task(task_id='1002', title='Laundry', urgency='3')
+# 1003,Grocery,4: Task(task_id='1003', title='Grocery', urgency='4')
+
+
+# %%
+# case: generate list unit
+desired_output = [
+    '#1: 1001,Homework,5',
+    '#2: 1002,Laundry,3',
+    '#3: 1003,Grocery,4'
+]
+
+with open("tasks.txt") as file:
+    lines = file.readlines()
+    updated_lines = [f"#{row}: {line.strip()}" 
+                     for row, line in enumerate(lines, start=1)]   # enumerate(): generate counter
+
+assert desired_output == updated_lines
+
+
+# %%
+# case: readline()
+with open("tasks.txt") as file:
+    print(file.readline())
+    print(file.readline())
+    print(file.readline(5)) # maximum readable size
+    print(file.readline(8))
+    print(file.readline())
+
+# output: 
+# 1001,Homework,5
+
+# 1002,Laundry,3
+
+# 1003,
+# Grocery,
+# 4
+# %%
