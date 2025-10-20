@@ -620,3 +620,113 @@ with open("tasks_dict.txt", "w", newline="") as file:
 
 
 # %%
+import pickle
+
+task_tuple = (1001, "Homework", 5)
+task_dict = {'task_id': '1002', 'task_title': 'Laundry', 'urgency': 3}
+
+with open("task_tuple_saved.pickle", "wb") as file:
+    pickle.dump(task_tuple, file)       # dump(): task_tuple -> pickle file
+
+with open("task_dict_saved.pickle", "wb") as file:
+    pickle.dump(task_dict, file)        # dump(): task_dict -> pickle file
+
+
+# %%
+# unpickling
+with open("task_tuple_saved.pickle", "rb") as file:
+    task_tuple_loaded = pickle.load(file)
+
+with open("task_dict_saved.pickle", "rb") as file:
+    task_dict_loaded = pickle.load(file)
+
+
+# %%
+assert task_tuple == task_tuple_loaded
+
+assert task_dict == task_dict_loaded
+
+
+# %%
+# case: pickled class(user defined class's instance)
+class Task:
+    def __init__(self, title, urgency):
+        self.title = title
+        self.urgency = urgency
+
+task = Task("Laundry", 3)
+
+with open("task_class_saved.pickle", "wb") as file:     # pickling
+    pickle.dump(task, file)
+
+with open("task_class_saved.pickle", "rb") as file:     # unpickling
+    task_class_loaded = pickle.load(file)
+
+assert task.__dict__ == task_class_loaded.__dict__
+
+assert task is not task_class_loaded
+
+
+# %%
+del Task    # delete Task in global scope namespace
+
+with open("task_class_saved.pickle", "rb") as file:
+    task_class_loaded = pickle.load(file)
+
+# output: AttributeError: can't get attribute 'Task' on <module '__main__' (built-in)>
+
+
+# %%
+# case: pickling function 
+def doubler(x):
+    return x * 2
+
+doubler_pickle = pickle.dumps(doubler)
+doubler_pickle
+# output: b'\x80\x04\x95\x18\x00\x00\x00\x00\x00\x00\x00\x8c\x08__main__\x94\x8c\x07doubler\x94\x93\x94.'
+
+
+# %%
+doubler_loaded = pickle.loads(doubler_pickle)
+
+assert doubler_loaded(5) == doubler(5)
+
+
+# %%
+# pickling module
+import os
+
+os_dumped = pickle.dumps(os)
+# output: TypeError: cannot pickle 'module' object
+
+
+# %%
+# data security
+import os
+
+class MaliciousTask:
+    def __init__(self, title, urgency):
+        self.title = title
+        self.urgency = urgency
+    
+    def __reduce__(self):
+        print("__reduce__ is called")
+        return os.system, ('touch hacking.txt',)
+
+
+# %%
+# pickling user defined class's instance
+malicious_task = MaliciousTask("Set fire", 5)
+
+with open("test_malicious.pickle", "wb") as file:
+    pickle.dump(malicious_task, file)
+
+# output: __reduce__ is called
+
+
+# %%
+with open("test_malicious.pickle", "rb") as file:
+    pickle.load(file)
+
+
+# %%
