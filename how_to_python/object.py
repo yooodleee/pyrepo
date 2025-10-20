@@ -507,3 +507,36 @@ with open("tasks.txt") as file:
 # Grocery,
 # 4
 # %%
+# correct case: allocate write mode
+data = """1001,Homework,5
+1002,Laundry,3
+1003,Grocery,4"""
+
+with open("tasks_new.txt", "w") as file:
+    print('File: ', file)
+    result = file.write(data)
+    print("Writing result: ", result)
+
+# # output: 
+# File:  <_io.TextIOWrapper name='tasks_new.txt' mode='w' encoding='cp949'>
+# Writing result:  45
+
+
+# %%
+# wrong case: allocate default mode(read)
+with open("tasks_new.txt") as file:     # default mode: r(read)
+    print("File: ", file)
+    result = file.write(data)
+    print("Writing result: ", result)
+
+# output: io.UnsupportedOperation: not writable
+
+
+# %%
+new_task = "1004,Museum,3"
+
+with open("tasks.txt", "a") as file:    # append mode
+    file.write(f"\n{new_task}")
+
+
+# %%
