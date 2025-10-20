@@ -540,3 +540,83 @@ with open("tasks.txt", "a") as file:    # append mode
 
 
 # %%
+import csv
+
+with open("tasks.txt", newline="") as file:
+    csv_reader = csv.reader(file)
+    for row in csv_reader:
+        print(row)
+
+# # output: 
+# ['1001', 'Homework', '5']
+# ['1002', 'Laundry', '3']
+# ['1003', 'Grocery', '4']
+# ['1004', 'Museum', '3']
+
+
+# %%
+with open("tasks.txt", newline="") as file:
+    csv_reader = csv.reader(file)
+    tasks_row = list(csv_reader)
+    print(tasks_row)
+
+# # output:
+# [['1001', 'Homework', '5'], ['1002', 'Laundry', '3'], ['1003', 'Grocery', '4'], ['1004', 'Museum', '3']]
+
+
+# %%
+with open("tasks.txt", newline="") as file:
+    csv_reader = csv.reader(file)
+    fields = next(csv_reader)       # get next item
+    print("Field: ", fields)
+    for row in csv_reader:
+        task_dict = dict(zip(fields, row))  # generate dict instace
+        print(task_dict)
+
+# # output: 
+# Field:  ['task_id', 'title', 'urgency']
+# {'task_id': '1001', 'title': 'Homework', 'urgency': '5'}
+# {'task_id': '1002', 'title': 'Laundry', 'urgency': '3'}
+# {'task_id': '1003', 'title': 'Grocery', 'urgency': '4'}
+# {'task_id': '1004', 'title': 'Museum', 'urgency': '3'}
+
+
+# %%
+with open("tasks.txt", newline="") as file:
+    csv_reader = csv.DictReader(file)
+    for row in csv_reader:
+        print(row)
+
+# # output: 
+# {'task_id': '1001', 'title': 'Homework', 'urgency': '5'}
+# {'task_id': '1002', 'title': 'Laundry', 'urgency': '3'}
+# {'task_id': '1003', 'title': 'Grocery', 'urgency': '4'}
+# {'task_id': '1004', 'title': 'Museum', 'urgency': '3'}
+
+
+# %%
+new_task = "1005,Study,7"
+
+with open("tasks.txt", "a", newline="") as file:
+    file.write("\n")
+    csv_writer = csv.writer(file)
+    csv_writer.writerow(new_task.split(","))    # split: generate list
+
+
+# %%
+tasks = [
+    {'task_id': '1001', 'title': 'Homework', 'urgency': '5'},
+    {'task_id': '1002', 'title': 'Laundry', 'urgency': '3'},
+    {'task_id': '1003', 'title': 'Grocery', 'urgency': '4'},
+    {'task_id': '1004', 'title': 'Museum', 'urgency': '3'},
+]
+
+fields = ['task_id', 'title', 'urgency']
+
+with open("tasks_dict.txt", "w", newline="") as file:
+    csv_writer = csv.DictWriter(file, fieldnames=fields)
+    csv_writer.writeheader()        # records header
+    csv_writer.writerows(tasks)     # record multiple rows
+
+
+# %%
