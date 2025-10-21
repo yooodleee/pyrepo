@@ -857,3 +857,73 @@ for file in data_folder.glob("*.txt"):
 
 
 # %%
+from pathlib import Path
+
+subjects_folder = Path("subjects")
+
+for dat_path in subjects_folder.glob("**/*.dat"):
+    subject_dir = dat_path.parent       # get file's directory name
+    filename = dat_path.stem            # filename excepted extension
+    config_path = subject_dir / f"{filename}.config"
+    print(f"{subject_dir} & {filename} -> {config_path}")
+
+    dat_exists = dat_path.exists()
+    config_exists = config_path.exists()
+
+    with open(dat_path) as dat_file, open(config_path) as config_file:
+        print(f"Process {filename}: dat? {dat_exists}, config? {config_exists}\n")
+
+# # output: 
+# subjects/subject_125 & subject_125 -> subjects/subject_125/subject_125.config
+# Process subject_125: dat? True, config? True
+
+# subjects/subject_124 & subject_124 -> subjects/subject_124/subject_124.config
+# Process subject_124: dat? True, config? True
+
+# subjects/subject_123 & subject_123 -> subjects/subject_123/subject_123.config
+# Process subject_123: dat? True, config? Tru
+
+
+# %%
+dat_path = Path("subjects/subject/subject_123.dat")
+
+assert dat_path.suffix == ".dat"
+
+
+# %%
+def process_data_using_sizze_cutoff(min_size, max_size):
+    data_folder = Path("data")
+    for dat_path in data_folder.glob("*.dat"):
+        filename = dat_path.name
+        size = dat_path.stat().st_size  # file size
+        if min_size < size < max_size:
+            print(f"{filename}, Good; {size}, within [{min_size}, {max_size}]")
+        else:
+            print(f"{filename}, Bad; {size}, outside [{min_size}, {max_size}]")
+
+
+process_data_using_sizze_cutoff(20, 40)
+# # output: 
+# subject_124.dat, Good; 30, within [20, 40]
+# subject_125.dat, Good; 30, within [20, 40]
+# subject_123.dat, Good; 30, within [20, 40
+
+process_data_using_sizze_cutoff(40, 60)
+# # output: 
+# subject_124.dat, Bad; 30, outside [40, 60]
+# subject_125.dat, Bad; 30, outside [40, 60]
+# subject_123.dat, Bad; 30, outisde [40, 60]
+
+
+# %%
+import time 
+
+subject_dat_path = Path("data/subject_123.dat")
+modified_time = subject_dat_path.stat().st_mtime
+readable_time = time.ctime(modified_time)
+
+print(f"Modification time: {modified_time} -> {readable_time}")
+# output: Modification time: 1652123144.9999998 -> Mon May 9 14:05:44 2022
+
+
+# %%
