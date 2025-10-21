@@ -730,3 +730,130 @@ with open("test_malicious.pickle", "rb") as file:
 
 
 # %%
+from pathlib import Path
+
+data_folder = Path("data")
+data_folder.mkdir()     # make directory
+
+
+# %%
+assert data_folder.exists()
+
+
+# %%
+subject_ids = [123, 124, 125]
+extensions = ["config", "dat", "txt"]
+
+for subject_id in subject_ids:
+    for extension in extensions:
+        filename = f"subject_{subject_id}.{extension}"
+        filepath = data_folder / filename
+        with open(filepath, "w") as file:
+            file.write(f"It's the file {filename}.")
+
+
+# %%
+data_folder = Path("data")
+
+data_files = data_folder.glob("*.dat")
+print("Data files: ", data_files)   # generator instance
+
+for data_file in data_files:
+    print(f"Processing file: {data_file}")
+
+# # output: 
+# Data files:  <generator object Path.glob at 0x00000126D95FE890>
+# Processing file: data\subject_123.dat
+# Processing file: data\subject_124.dat
+# Processing file: data\subject_125.dat
+
+
+# %%
+data_files = data_folder.glob("*.dat")
+
+for data_file in sorted(data_files):    # sorted generator and return a new list
+    print(f"Processing file: {data_file}")
+
+# # output: 
+# Processing file: data\subject_123.dat
+# Processing file: data\subject_124.dat
+# Processing file: data\subject_125.dat
+
+
+# %%
+subject_ids = [123, 124, 125]
+data_folder = Path("data")
+
+for subject_id in subject_ids:
+    subject_folder = Path(f"subjects/subject_{subject_id}")
+    subject_folder.mkdir(parents=True, exist_ok=True)
+    for subject_file in data_folder.glob(f"*{subject_id}*"):
+        filename = subject_file.name
+        target_path = subject_folder / filename
+        _ = subject_file.rename(target_path)
+        print(f"Moving {filename} to {target_path}")
+
+# # output: 
+# Moving subject_123.config to subjects\subject_123\subject_123.config
+# Moving subject_123.dat to subjects\subject_123\subject_123.dat
+# Moving subject_123.txt to subjects\subject_123\subject_123.txt
+# Moving subject_124.config to subjects\subject_124\subject_124.config
+# Moving subject_124.dat to subjects\subject_124\subject_124.dat
+# Moving subject_124.txt to subjects\subject_124\subject_124.txt
+# Moving subject_125.config to subjects\subject_125\subject_125.config
+# Moving subject_125.dat to subjects\subject_125\subject_125.dat
+# Moving subject_125.txt to subjects\subject_125\subject_125.txt
+
+
+# %%
+import shutil
+
+shutil.rmtree("subjects")   # remove directory, file, sub directory
+
+subject_ids = [123, 124, 125]
+data_folder = Path("data")
+
+for subject_id in subject_ids:
+    subject_folder = Path(f"subjects/subject_{subject_id}")
+    subject_folder.mkdir(parents=True, exist_ok=True)
+
+    for subject_file in data_folder.glob(f"*{subject_id}*"):
+        filename = subject_file.name
+        target_path = subject_folder / filename
+        _ = shutil.copy(subject_file, target_path)
+
+        print(f"Copying {filename} to {target_path}")
+
+# # # output: 
+# Copying subject_123.config to subjects/subject_123/subject_123.config
+# Copying subject_123.dat to subjects/subject_123/subject_123.dat
+# Copying subject_123.txt to subjects/subject_123/subject_123.txt
+# Copying subject_124.config to subjects/subject_124/subject_124.config
+# Copying subject_124.dat to subjects/subject_124.subject_124.dat
+# Copying sujbect_124.txt to subjects/subject_124.subject_124.txt
+# Copying subject_125.config to subjects/subject_125/subject_125.config
+# Copying subject_125.dat to subjects/subject_125/subject_125.dat
+# Copying subject_125.txt to subjects/subject_125/subject_125.tx
+
+
+# %%
+Path("subjects").rmdir()
+# output: OSError: [Errno 66] Directory not empty: 'subjects'
+
+
+# %%
+data_folder = Path("data")
+
+for file in data_folder.glob("*.txt"):
+    before = file.exists()
+    file.unlink()
+    after = file.exists()
+    print(f"Deleting {file}, existing? {before} -> {after}")
+
+# # output: 
+# Deleting data/subject_123.txt, existing? True -> False
+# Deleting data/subject_124.txt, existing? True -> False
+# Deleting data/subject_125.txt, existing? True -> False
+
+
+# %%
