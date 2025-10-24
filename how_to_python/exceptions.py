@@ -151,3 +151,29 @@ process_task_string6("Laundry,3#")
 
 
 # %%
+def process_task_string7(text):
+    title, urgency_str = text.split(",")
+    try:
+        urgency = int(urgency_str)
+    except ValueError as e:
+        print(f"Couldn't cast the number. Description: {e}")
+        return None
+    else:
+        task = Task(title, urgency)
+        return task
+
+processed_task7 = process_task_string7("Laundry,3")
+
+assert processed_task7 == Task("Laundry", 3)
+
+
+# %%
+processed_task = process_task_string7("Laundry,3#")
+# # output: 
+# Couldn't cast the number. Description: invalid literal for int() with base 10: '3#'
+
+print(processed_task)
+# output: None
+
+
+# %%
