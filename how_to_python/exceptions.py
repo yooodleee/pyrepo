@@ -177,3 +177,22 @@ print(processed_task)
 
 
 # %%
+def process_task_string9(text):
+    title, urgency_str = text.split(",")
+    try:
+        urgency = int(urgency_str)
+        task = Task(title, urgency)
+        return task
+    except ValueError as e:
+        print(f"Couldn't cast the number. Description: {e}")
+        return None
+    finally:
+        print(f"Done processing text: {text}")
+
+task = process_task_string9("Laundry,3")
+# output: Done processing text: Laundry,3
+
+assert task == Task("Laundry", 3)
+
+
+# %%
