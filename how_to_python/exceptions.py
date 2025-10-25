@@ -196,3 +196,40 @@ assert task == Task("Laundry", 3)
 
 
 # %%
+# syntactic sugar
+raise ValueError
+# # output: 
+# Traceback (most recent call last)
+#     File "<stdin>", line 1, in <module>
+# ValueError
+
+raise ZeroDivisionError
+# # output: 
+# Traceback (most recent call last)
+#     File "<stdin>", line 1, in <module>
+# ZeroDivisionError
+
+
+# %%
+try:
+    1 / 0
+except ZeroDivisionError as e:  # ZeroDivisionError class's instance 
+    print(f"Type: {type(e)}")
+print(f"Is an instance of ZeroDivisionError? {isinstance(e, ZeroDivisionError)}")
+# # output: 
+# Type: <class 'ZeroDivisionError'>
+# Is an instance of ZeroDivisionError? True
+
+
+# %%
+# user defined message
+raise ValueError("Please use the correct parameter.")
+# output: ValueError: Please use the correct parameter.
+
+code_used = "3#"
+
+raise ValueError(f"You used a wrong parameter: {code_used!r}")  # !r
+# output: ValueError: You used a wrong parameter: '3#'
+
+
+# %%
