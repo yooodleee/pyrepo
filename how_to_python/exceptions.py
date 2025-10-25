@@ -233,3 +233,59 @@ raise ValueError(f"You used a wrong parameter: {code_used!r}")  # !r
 
 
 # %%
+# inner exception class first
+class Task:
+    def __init__(self, title):
+        if isinstance(title, str):
+            self.title = title
+        else:
+            raise TypeError("Please instantiate the Task using string as its title")
+
+task = Task(100)
+# output: TypeError: Please instantiate the Task using string as its title
+
+
+# %%
+# user defined exception class
+class TaskierError(Exception):
+    pass
+
+class FileExtensionError(TaskierError):
+    def __init__(self, file_path):
+        super().__init__()
+        self.file_path = file_path
+    
+    def __str__(self):
+        return f"The file ({self.file_path}) doesn't apper to be a CSV file."
+
+# package's other code
+from pathlib import Path
+
+def upload_file(file_path):
+    path = Path(file_path)
+    if path.suffix.lower() != ".csv":
+        raise FileExtenError(file_path)
+    else:
+        print(f"Processing the file at {file_path}")
+
+
+# %%
+def custom_upload_file(file_path):
+    try:
+        upload_file(file_path)
+    except FileExtensionError as e:
+        print(e)
+    else:
+        print("Custom upload file is done.")
+
+custom_upload_file("tasks.csv")
+# # output: 
+# Processing the file at tasks.csv
+# Custom upload file is done.
+
+custom_upload_file("tasks.docx")
+# # output: 
+# The file at tasks.docx doesn't appear to be a CSV file.
+
+
+# %%
