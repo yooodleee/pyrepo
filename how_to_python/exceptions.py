@@ -289,3 +289,27 @@ custom_upload_file("tasks.docx")
 
 
 # %%
+# traceback
+class Task:
+    def __init__(self, title, urgency):
+        self.title = title
+        self.urgency = urgency
+    
+    def _update_db(self):
+        # update database's records
+        print("update the database")
+    
+    def update_urgency(self, urgency):
+        self.urgency = urgency
+        self.update_db()
+
+task = Task("Laundry", 3)
+task.update_urgency(4)
+# output: 
+# Traceback (most recent call last):
+#   File "<stdin>", line 1, in <module>
+#   File "<stdin>", line 10, in update_urgency
+# AttributeError: 'Task' object has no attribute 'update_db'
+
+
+# %%
