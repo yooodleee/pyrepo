@@ -4,22 +4,31 @@ from datetime import date
 from typing import Optional, List, Set
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True)    
 class OrderLine:
     orderid: str
     sku: str
     qty: int
 
-
 class Batch:
-    def __init__(
-            self, ref: str, sku: str, qty: int, eta: Optional[date]
-    ):
+    def __init__(self, 
+                 ref: str, 
+                 sku: str, 
+                 qty: int, 
+                 eta: Optional[date]):
         self.reference = ref
         self.sku = sku
         self.eta = eta
         self._purchased_quantity = qty
-        self._allocations = set() # type: Set[OrderLine]
+        self._allocations = set()           # type: Set[OrderLine]
+    
+    def __eq__(self, other):
+        if not isinstance(other, Batch):
+            return False
+        return other.reference == self.reference
+    
+    def __hash__(self):
+        return hash(self.reference)
     
     def allocate(self, line: OrderLine):
         if self.can_allocate(line):
