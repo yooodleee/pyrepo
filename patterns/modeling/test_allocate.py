@@ -1,4 +1,4 @@
-from model import Batch, OrderLine, OutOfStock, allocate
+from patterns.modeling.entity.model import Batch, OrderLine, OutOfStock, allocate
 import datetime 
 import random
 import pytest

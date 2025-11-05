@@ -1,7 +1,7 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, MetaData, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, mapper
-import model
+import patterns.modeling.model.model as model
 
 
 metadata = MetaData()
