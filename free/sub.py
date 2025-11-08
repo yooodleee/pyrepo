@@ -187,3 +187,207 @@ for i, v in enumerate(li, start=1):
 
 
 # %%
+nums = [1, 2, 3]
+letters = ["A", "B", "C"]
+
+for pair in zip(nums, letters):     # yields n-length tuple
+    print(pair)
+
+# # output: 
+# (1, 'A')
+# (2, 'B')
+# (3, 'C')
+
+
+# %%
+# non-zip case:
+nums = [1, 2, 3]
+letters = ["A", "B", "C"]
+
+for i in range(3):
+    pair = (nums[i], letters[i])
+    print(pair)
+
+# # output: 
+# (1, 'A')
+# (2, 'B')
+# (3, 'C')
+
+
+# %%
+for num, upper, lower in zip("12345", "ABCDE", "abcde"):    # unpacking
+    print(num, upper, lower)
+
+# # output: 
+# 1 A a
+# 2 B b
+# 3 C c
+# 4 D d
+# 5 E e
+
+
+# %%
+num = [1, 2, 3, 4, 5]
+upper = ["A", "B", "C", "D", "E"]
+lower = ["a", "b", "c", "d", "e"]
+
+for i in range(5):
+    pair = (num[i], upper[i], lower[i])
+    print(pair)
+
+# # output: 
+# (1, 'A', 'a')
+# (2, 'B', 'b')
+# (3, 'C', 'c')
+# (4, 'D', 'd')
+# (5, 'E', 'e')
+
+
+# %%
+# unzip
+nums = (1, 2, 3)
+letters = ("A", "B", "C")
+pairs = list(zip(nums, letters))
+print(pairs)
+# # output: 
+# [(1, 'A'), (2, 'B'), (3, 'C')]
+
+
+# %%
+nums, letters = zip(*pairs)
+print(nums)
+# output: (1, 2, 3)
+
+print(letters)
+# output: ('A', 'B', 'C')
+
+
+# %%
+nums = ["1", "2", "3"]
+letters = ["A"]
+
+list(zip(nums, letters))
+# output: [('1', 'A')]
+
+
+# %%
+def plus(x, y):
+    return x * y
+
+plus(1, 10) # 10
+print((lambda x, y: x * y)(1, 10))  # 10
+
+
+# %%
+_list = [1, 2, 3, 4, 5]
+_list = map(lambda x: x * 10, _list)    # iterable: _list
+
+for i in _list:
+    print(i)    # 10, 20, 30, 40, 50
+
+
+# %%
+# filter
+users = [
+    {'mail': 'gregorythomas@gmail.com', 'name': 'Brett Holland', 'gender': 'M'},
+    {'mail': 'hintoncynthia@hotmail.com', 'name': 'Madison Martinez', 'gender': 'F'},
+    {'mail': 'wwagner@gmail.com', 'name': 'Michael Jenkins', 'gender': 'M'},
+    {'mail': 'daniel79@gmail.com', 'name': 'Karen Rodriguez', 'gender': 'F'},
+    {'mail': 'ujackson@gmail.com', 'name': 'Amber Rhodes', 'gender': 'F'}
+]
+
+def check_if_the_user_is_a_man(user):
+    return user["gender"] == "M"
+
+for man in filter(check_if_the_user_is_a_man, users):
+    print(man)
+
+# # output: 
+# {'mail': 'gregorythomas@gmail.com', 'name': 'Brett Holland', 'gender': 'M'}
+# {'mail': 'wwagner@gmail.com', 'name': 'Michael Jenkins', 'gender': 'M'}
+
+
+# %%
+# Counter
+portfolio = [
+    ('GOOG', 100, 490.1),
+    ('IBM', 50, 91.1),
+    ('CAT', 150, 83.44),
+    ('IBM', 100, 45.23),
+    ('GOOG', 75, 572.45),
+    ('AA', 50, 23.15)
+]
+
+from collections import Counter
+
+total_shares = Counter()
+
+for name, shares, price in portfolio:
+    total_shares[name] += shares
+
+total_shares['IBM']     # 150
+
+
+# %%
+# defaultdict
+portfolio = [
+    ('GOOG', 100, 490.1),
+    ('IBM', 50, 91.1),
+    ('CAT', 150, 83.44),
+    ('IBM', 100, 45.23),
+    ('GOOG', 75, 572.45),
+    ('AA', 50, 23.15)
+]
+
+from collections import defaultdict
+
+holdings = defaultdict(list)
+for name, shares, price in portfolio:
+    holdings[name].append((shares, price))
+
+holdings['IBM'] # [(50, 91.1), (100, 45.23)]
+
+
+# %%
+def mul(x, y):
+    return x * y
+
+li1 = [1, 2, 3]
+li2 = [10, 20, 30]
+
+result = map(mul, li1, li2)
+list(result)
+# output: [10, 40, 90]
+
+
+# %%
+a = [1, 2, 3]
+b = [2, 4, 6, 8, 10]
+
+rst = map(lambda x, y: x * y, a, b)
+print(list(rst))
+# output: [2, 8, 18]
+
+
+# %%
+logs_example = [
+	"INFO:User logged in",
+	"ERROR:Not authorized user",
+	"INFO:Data processed",
+	"ERROR:Timeout occurred",
+	"INFO:Data processed",
+	"INFO:Data processed",
+	"ERROR:File not found",
+]
+
+for line_number, log in enumerate(logs_example, start=1):
+    if "ERROR" in log:
+        print(f"Error found at lien {line_number}: {log}")
+
+# # output: 
+# Error found at lien 2: ERROR:Not authorized user
+# Error found at lien 4: ERROR:Timeout occurred
+# Error found at lien 7: ERROR:File not found
+
+
+# %%
