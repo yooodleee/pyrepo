@@ -391,3 +391,179 @@ for line_number, log in enumerate(logs_example, start=1):
 
 
 # %%
+import time
+
+def heavy_work(name):
+		result = 0
+		for i in range(4000000):
+				result += i
+		print('%s done' % name)
+
+start = time.time()
+
+for i in range(4):
+		heavy_work(i)
+
+end = time.time()
+
+print("executed time: %f seconds" % (end - start))
+# # output: 
+# 0 done
+# 1 done
+# 2 done
+# 3 done
+# executed time: 0.293246 seconds
+
+
+# %%
+from multiprocessing import Process
+import time
+import logging 
+
+def main():
+    # set Logging format
+    form = "%(asctime)s: %(message)s"
+    logging.basicConfig(form=form, level=logging.INFO, datefmt="%H:%M:%S")
+
+    # check method's argument
+    p = Process(target=process_function, args=('First', ))
+    logging.info("Main-Process: before creating Process")
+
+    # start process
+    p.start()
+    logging.info("Main-Process: During Process...")
+
+    # wait until process terminates
+    logging.info("Main-Process: Joined Process")
+    p.join()
+
+    # # If you need to force a process to terminate under certain conditions
+    # logging.info("Main-Process: Terminated Process...")
+    # p.terminate()
+
+    # check process's status
+    print(f'Process p is alive: {p.is_alive()}')
+
+def process_function(name):
+    print(f"This is Sub-Process {name}: starting")
+    time.sleep(3)
+    print(f"This is Sub-Process {name}: finishing")
+
+if __name__ == "__main__":
+    main()
+
+
+# %%
+from multiprocessing import Process, Queue, current_process
+import time
+import os
+
+
+def worker(id, baseNum, q):
+    process_id = os.getpid()
+    process_name = current_process().name
+
+    sub_total = 0
+    for i in range(baseNum):
+        sub_total += 1
+    
+    # produce
+    q.put(sub_total)
+    
+    # process's id and result
+    print(f'Process ID: {process_id} Process Name: {process_name}')
+    print(f'Result is: {sub_total}')
+
+def main():
+    parent_process_id = os.getpid()
+    print(f'Parent process ID: {parent_process_id}')
+
+    processes = list()
+
+    # execution time recording for performance measurement
+    start = time.time()
+
+    # declaration Queue
+    q = Queue()
+    for i in range(5):
+        p = Process(name=str(i), target=worker, args=(i, 10000, q))
+
+        processes.append(p)
+        p.start()
+    
+    for process in processes:
+        process.join()
+    
+    # pure execution time 
+    print("---- %s seconds ----" % (time.time() - start))
+
+    # exit flag
+    q.put('exit')
+    total = 0
+    while True:
+        tmp = q.get()
+        if tmp == 'exit':
+            break
+        else:
+            total += tmp
+    
+    print(f'Main-Processing Total Count: {total}')
+    print("Multi process is Done!")
+
+if __name__ == "__main__":
+    main()
+
+# # output: 
+# Parent process ID: 4012
+# ---- 0.12848114967346191 seconds ----
+# Main-Processing Total Count: 0
+# Multi process is Done!
+
+
+# %%
+from multiprocessing import Process, Pipe, current_process
+import time
+import os
+
+
+def worker(id, baseNum, conn):
+    process_id = os.getpid()
+    process_name = current_process().name
+
+    sub_total = 0
+    for i in range(baseNum):
+        sub_total += 1
+    
+    # lock the pipeline when child sends with send 
+    conn.send(sub_total)
+    conn.close()
+
+    # process's id and result
+    print(f'Process ID: {process_id} Process Name: {process_name}')
+    print(f'Result is: {sub_total}')
+
+def main():
+    parent_process_id = os.getpid()
+    print(f'Parent process ID: {parent_process_id}')
+
+    # execution time recording for performance measurement
+    start = time.time()
+
+    # declaration Pipe
+    parent_conn, child_conn = Pipe()
+
+    p = Process(name='child', target=worker, args=('child', 10000, child_conn))
+    p.start()
+    p.join()
+
+    # pure execution time 
+    print("---- %s seconds ----" % (time.time() - start))
+
+    print(f'Main-Processing Total Count: {parent_conn.recv()}') # receive a object
+    print("Multi process is Done!")
+
+if __name__ == "__main__":
+    main()
+
+
+# %%

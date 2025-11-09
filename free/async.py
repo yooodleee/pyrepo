@@ -318,3 +318,59 @@ asyncio.run(main())
 
 
 # %%
+# sync case: one process, one thread
+import requests
+import time
+import os
+import threading
+
+
+def fetch(url):
+    print(f"ID: {os.getpid()} | Thread: {threading.get_ident()} | url: {url}")
+    response = requests.get(url)
+    return response.text
+
+def main():
+    urls = ["https://www.naver.com", "https://www.google.com", "https://daum.net"] * 10
+    for url in urls:
+        fetch(url)
+
+if __name__ == "__main__":
+    start = time.time()
+    main()
+    print("elapsed-time: ", time.time() - start)
+
+# # output: 
+# elapsed-time:  7.926071882247925
+
+
+# %%
+# async case: aiohttp(not requests)
+import aiohttp
+import asyncio
+import time
+import os
+import threading
+
+
+async def fetch(session, url):
+    print(f"PID: {os.getpid()} | Thread: {threading.get_ident()} | url: {url}")
+    async with session.get(url) as response:
+        return await response.text()
+
+async def main():
+    urls = ["https://www.naver.com", "https://www.google.com", "https://daum.net"] * 10
+
+    async with aiohttp.ClientSession() as session:
+        _ = await asyncio.gather(*[fetch(session, url) for url in urls])
+
+if __name__ == "__name__":
+    start = time.time()
+    asyncio.run(main())
+    print("elapsed-time: ", time.time() - start)
+
+# # output: 
+# elapsed-time: 0.53
+
+
+# %%
