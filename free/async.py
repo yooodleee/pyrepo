@@ -374,3 +374,97 @@ if __name__ == "__name__":
 
 
 # %%
+# one process, one threading
+import os
+import threading 
+import time
+
+
+def calculate(n):
+    print(f"{os.getpid()} process | {threading.get_ident()} thread | n: {n}")
+    total = 0
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                total += i * j * k
+    return total
+
+def main(nums):
+    results = [calculate(num) for num in nums]
+    print(results)
+
+if __name__ == "__main__":
+    start = time.time()
+    main([300] * 10)
+    print("elapsed-time: ", time.time() - start)
+
+# # output: 
+# elapsed-time:  9.546371221542358
+
+
+# %%
+# multi-thread: concurrent
+import os
+import threading
+import time
+from concurrent.futures import ThreadPoolExecutor
+
+
+def calculate(n):
+    print(f"{os.getpid()} process | {threading.get_ident()} thraed | n: {n}")
+    total = 0
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                total += i * j * k
+    return total
+
+def main(nums):
+    with ThreadPoolExecutor(max_workers=10) as executor:
+        results = list(executor.map(calculate, nums))
+        print(results)
+
+if __name__ == "__main__":
+    start = time.time()
+    main([300] * 10)
+    print("elapsed-time: ", time.time() - start)
+
+# # output: 
+# elapsed-time:  9.263675212860107
+
+
+# %%
+# multi-processing: concurrent
+import os
+import threading
+import time
+from concurrent.futures import ProcessPoolExecutor
+
+
+def calculate(n):
+    print(f"{os.getpid()} process | {threading.get_ident()} thread | n: {n}")
+    total = 0
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                total += i * j * k
+    return total
+
+def main(nums):
+    with ProcessPoolExecutor(max_workers=4) as executor:
+        results = list(executor.map(calculate, nums))
+        print(results)
+
+if __name__ == "__main__":
+    import multiprocessing 
+    multiprocessing.freeze_support()    
+
+    start = time.time()
+    main([50] * 4)
+    print("elapsed-time: ", time.time() - start)
+
+# # output: 
+# BrokenProcessPool: A process in the process pool was terminated abruptly while the future was running or pending.
+
+
+# %%
