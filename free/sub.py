@@ -567,3 +567,65 @@ if __name__ == "__main__":
 
 
 # %%
+# Data Descriptor: __get__(), __set__()
+class Descriptor:
+    def __get__(self, instance, owner):
+        print("Get the value of an attribute")
+        return instance.__dict__[self.name]
+    
+    def __set__(self, instance, value):
+        print("Set the value of an attribute")
+        instance.__dict__[self.name] = value
+    
+class MyClass:
+    x = Descriptor()
+
+
+# %%
+# Non-Data Descriptor: __get__()
+class NonDescriptor:
+    def __get__(self, instance, owner):
+        print("Get the value of an attribute")
+        return instance.__dict__[self.name]
+    
+class MyClass:
+    x = NonDescriptor()
+
+
+# %%
+# Class Descriptor
+class ClassDescriptor:
+    def __set_name__(self, owner, name):
+        self.name = name
+
+    def __get__(self, instance, owner):
+        print("Get the value of an attribute")
+        return instance.__dict__[self.name]
+
+    def __set__(self, instance, value):
+        print("Set the value of an attribute")
+        instance.__dict__[self.name] = value
+
+class MyClass:
+    x = ClassDescriptor()
+
+class MyOtherClass(MyClass):
+    pass
+
+obj1 = MyClass()
+obj2 = MyOtherClass()
+obj1.x = 10
+obj2.x = 20
+print(obj1.x)
+print(obj2.x)
+
+# # output: 
+# Set the value of an attribute
+# Set the value of an attribute
+# Get the value of an attribute
+# 10
+# Get the value of an attribute
+# 20
+
+
+# %%
