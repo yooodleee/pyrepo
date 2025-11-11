@@ -629,3 +629,50 @@ print(obj2.x)
 
 
 # %%
+# Slots
+class SlotClass:
+    __slots__ = ('name', )
+
+class NoSlotClass:
+    pass
+
+slot = SlotClass()
+no_slot = NoSlotClass()
+no_slot.name = 'a'
+
+slot.__dict__       # AttributeError: 'SlotClass' object has no attribute '__dict__'
+no_slot.__dict__
+
+
+# %%
+class Point3D:
+    __slots__ = ('x', 'y', 'z')
+    # __slots__ = ('x', 'y', 'z')
+
+    def __init__(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
+    
+    def __str__(self):
+        return f'3D coordinates: ({self.x}, {self.y}, {self.z})'
+
+def main():
+    p1 = Point3D(1, 1, 1)
+    p2 = Point3D(24, 27, 31)
+    print(p1)   # 3D coordinates: (1, 1, 1)
+    print(p2)   # 3D coordinates: (24, 27, 31)
+
+    p1.v1 = 30
+    # output: AttributeError: 'Point3D' object has no attribute 'v1'
+    # output2: p1.v1 = 30
+
+    print(p1.__dict__)
+    # output: AttributeError: 'Point3D' object has no attribute '__dict__'
+    # output2: {'x': 1, 'y': 1, 'z': 1, 'v1': 30}
+
+if __name__ == "__main__":
+    main()
+
+
+# %%
