@@ -1,20 +1,28 @@
 from datetime import datetime
-import requests
 from constants import STATUS_ENDPOINT
 
 
 class BuildStatus:
+    endpoint = STATUS_ENDPOINT
+
+    def __init__(self, transport):
+        self.transport = transport      # dependency
+
     @staticmethod
     def build_date() -> str:
-        return datetime.utcnow().isoformat()
+        return datetime.now().isoformat()
     
-    @classmethod
-    def notify(cls, merge_request_id, status):
-        build_status = {
+    def compose_payload(self, merge_request_id, status) -> dict:
+        return {
             "id": merge_request_id,
             "status": status,
-            "build_at": cls.build_date(),
+            "build_at": self.build_date(),
         }
-        response = requests.post(STATUS_ENDPOINT, json=build_status)
+    
+    def deliver(self, payload):
+        response = self.transport.post(self.endpoint, json=payload)
         response.raise_for_status()
         return response
+    
+    def notify(self, merge_request_id, status):
+        return self.deliver(self.compose_payload(merge_request_id, status))

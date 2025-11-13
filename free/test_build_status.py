@@ -1,15 +1,23 @@
 from unittest import mock 
 from constants import STATUS_ENDPOINT
 from build_status import BuildStatus
+import pytest
 
 
-@mock.patch("build_stats.requests")
-def test_build_notification_sent(mock_requests):
-    build_date = "2025-08-24T00:00:01"
-    with mock.patch("build_status.BuildStatus.build_date", return_value=build_date):
-        BuildStatus.notify(123, "OK")
+@pytest.fixture
+def build_status():
+    bstatus = BuildStatus(mock.Mock())
+    bstatus.build_date = mock.Mock(return_value="2025-08-25T00:00:01")
+    return bstatus
 
-    expected_payload = {"id": 123, "status": "OK", "build_at": build_date}
-    mock_requests.post.assert_called_with(
-        STATUS_ENDPOINT, json=expected_payload
+def test_build_notification_sent(build_status):
+    build_status.notify(1234, "OK")
+
+    expected_payload = {
+        "id": 1234,
+        "status": "OK",
+        "build_at": build_status.build_date(),
+    }
+    build_status.transport.post.assert_called_with(
+        build_status.endpoint, json=expected_payload
     )
