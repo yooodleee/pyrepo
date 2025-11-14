@@ -108,6 +108,12 @@ class ExtendedCases(unittest.TestCase):
             self.merge_request.downvote("dev1")
 
 
+class TestMergeRequestEvaluation(unittest.TestCase):
+    def test_approved(self):
+        result = MergeRequest.evaluate_merge_request(3, 0)
+        self.assertEqual(result, MergeRequestStatus.APPROVED)
+
+
 class TestUTFrameworks(BaseCase, ExtendedCases):
     mr_cls = MergeRequest
 

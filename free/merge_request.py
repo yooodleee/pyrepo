@@ -57,3 +57,10 @@ class MergeRequest:
     def downvote(self, by_user):
         self._context["upvotes"].discard(by_user)
         self._context["downvotes"].add(by_user)
+    
+    def evaluate_merge_request(upvote_count, downvote_count):
+        if downvote_count > 0:
+            return MergeRequestStatus.REJECTED
+        if upvote_count >= 2:
+            return MergeRequestStatus.APPROVED
+        return MergeRequestStatus.PENDING
