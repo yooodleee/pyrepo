@@ -676,3 +676,39 @@ if __name__ == "__main__":
 
 
 # %%
+import gc
+
+gc.set_threshold(3)
+
+a = 'alpha'
+b = 'bravo'
+c = 'charlie'
+d = 'delta'
+
+
+# %%
+del d
+
+e = 'echo'
+f = 'foxtrot'
+g = 'golf'
+
+
+# %%
+import weakref
+
+class Dummy(object):
+     def __init__(self):
+          self.data = list(range(int(1e8)))
+
+dummy = Dummy()
+temp = weakref.ref(dummy)
+print(len(temp().data))
+# 100000000
+
+del dummy       
+print(temp())
+# None
+
+
+# %%
