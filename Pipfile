@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 pygame = "*"
 pgzero = "*"
+mpi4py = "*"
+numpy = "*"
+joblib = "*"
 
 [dev-packages]
 
